@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  SpoonAppPrototype
+//  Spoon Task Manager App
 //
 //  Created by Tuhin Patel on 5/6/22.
 //
