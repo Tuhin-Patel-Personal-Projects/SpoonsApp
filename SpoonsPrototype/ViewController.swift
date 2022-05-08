@@ -63,15 +63,19 @@ class ViewController: UITableViewController {
         
     }
     
-    // Enables deleting, either in edit mode or by swiping
+    // Enables deleting in edit mode only
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        if editingStyle == UITableViewCell.EditingStyle.delete {
+        if editingStyle == UITableViewCell.EditingStyle.delete && !isEditing {
             taskList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath] , with: UITableView.RowAnimation.automatic )
         }
     }
     
+    // Enables swapping in edit mode
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        taskList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+    }
     
     
 
