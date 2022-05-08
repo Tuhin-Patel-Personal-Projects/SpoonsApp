@@ -12,6 +12,7 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editItems))
         
         
     }
@@ -48,6 +49,31 @@ class ViewController: UITableViewController {
         
          
     }
+    
+    // Handles what to do when the edit button is tapped
+    @objc func editItems() {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        
+        if tableView.isEditing {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(editItems))
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editItems))
+        }
+        
+        
+    }
+    
+    // Enables deleting, either in edit mode or by swiping
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            taskList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath] , with: UITableView.RowAnimation.automatic )
+        }
+    }
+    
+    
+    
 
 
 
