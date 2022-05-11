@@ -8,7 +8,9 @@
 import UIKit
 
 class ViewController: UITableViewController {
-    var taskList = [String]()
+    
+    var spoonCounts = [Int]() // Array containing just the categories of spoon counts the user gives
+    var taskLists = [Int: [String]]() // Each spoon count assigned to a list of tasks that have that spoon                                  count
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
@@ -20,12 +22,14 @@ class ViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskList.count
+        return spoonCounts.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Task", for: indexPath)
-        cell.textLabel?.text = taskList[indexPath.row]
         
+        let currSpoonCount = spoonCounts[indexPath.row] // Get the spoon count once
+        cell.textLabel?.text = String(currSpoonCount) // Cast the int as a string so it can be                                                         used as a label
+        taskLists[currSpoonCount] = [String]() // Create a new task list for this category of spoon count
         return cell
     }
     
@@ -35,12 +39,13 @@ class ViewController: UITableViewController {
         ac.addTextField() // User enters answer here
         
         let submitTask = UIAlertAction(title: "Submit", style: .default) { // Trailing closure syntax
+        
             
             // Specifies input into closure, use weak so that the closure does not caputure it strongly
             // Avoids strong reference cycle that retains memory for a long time
             [weak self, weak ac] action  in
             guard let newTask = ac?.textFields?[0].text else {return}
-            self?.taskList.append(newTask)
+            self?.spoonCounts.append(Int(newTask) ?? 0) // FIXME, TEMPORARY NIL COALESCING
             self?.tableView.reloadData()
             
         }
@@ -67,14 +72,14 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == UITableViewCell.EditingStyle.delete && !isEditing {
-            taskList.remove(at: indexPath.row)
+            spoonCounts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath] , with: UITableView.RowAnimation.automatic )
         }
     }
     
     // Enables swapping in edit mode
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        taskList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        spoonCounts.swapAt(sourceIndexPath.row, destinationIndexPath.row)
     }
     
     

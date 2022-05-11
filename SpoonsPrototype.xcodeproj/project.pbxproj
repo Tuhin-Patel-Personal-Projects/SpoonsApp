@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5932073A282C29C500EAC298 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598BA4222825BF00007B9A75 /* SceneDelegate.swift */; };
 		598BA4212825BF00007B9A75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598BA4202825BF00007B9A75 /* AppDelegate.swift */; };
-		598BA4232825BF00007B9A75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598BA4222825BF00007B9A75 /* SceneDelegate.swift */; };
 		598BA4252825BF00007B9A75 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598BA4242825BF00007B9A75 /* ViewController.swift */; };
 		598BA42A2825BF02007B9A75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 598BA4292825BF02007B9A75 /* Assets.xcassets */; };
 		598BA42D2825BF02007B9A75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 598BA42B2825BF02007B9A75 /* LaunchScreen.storyboard */; };
@@ -139,7 +139,7 @@
 			files = (
 				598BA4252825BF00007B9A75 /* ViewController.swift in Sources */,
 				598BA4212825BF00007B9A75 /* AppDelegate.swift in Sources */,
-				598BA4232825BF00007B9A75 /* SceneDelegate.swift in Sources */,
+				5932073A282C29C500EAC298 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
