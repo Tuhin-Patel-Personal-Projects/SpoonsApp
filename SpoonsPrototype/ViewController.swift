@@ -25,12 +25,24 @@ class ViewController: UITableViewController {
         return spoonCounts.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Task", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Category", for: indexPath)
         
         let currSpoonCount = spoonCounts[indexPath.row] // Get the spoon count once
         cell.textLabel?.text = String(currSpoonCount) // Cast the int as a string so it can be                                                         used as a label
         taskLists[currSpoonCount] = [String]() // Create a new task list for this category of spoon count
         return cell
+    }
+    
+    // Open the view for a specific task list
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Try loading the "Detail" view controller and typecasting it to be TaskViewController
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "TaskList") as? TaskViewController {
+            // Set title to be the spoon count
+            vc.listName = String(spoonCounts[indexPath.row])
+
+            // Display the task list
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     // Add new task to the main list
