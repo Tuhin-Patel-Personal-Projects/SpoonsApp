@@ -11,6 +11,9 @@ class ViewController: UITableViewController {
     
     var spoonCounts = [Int]() // Array containing just the categories of spoon counts the user gives
     var taskLists = [Int: [String]]() // Each spoon count assigned to a list of tasks that have that spoon                                  count
+    
+    var spoonVCs = [Int: TaskViewController]() // Associate a view controller with each spoon count
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
@@ -29,25 +32,38 @@ class ViewController: UITableViewController {
         
         let currSpoonCount = spoonCounts[indexPath.row] // Get the spoon count once
         cell.textLabel?.text = String(currSpoonCount) // Cast the int as a string so it can be                                                         used as a label
+        
         taskLists[currSpoonCount] = [String]() // Create a new task list for this category of spoon count
+        
+        // Create a view controller associated with this spoon count
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "TaskList") as? TaskViewController {
+            // Set title to be the spoon count
+            vc.listName = String(currSpoonCount)
+            
+            // Add to the dicitonary of View controllers
+            spoonVCs[currSpoonCount] = vc
+            
+        }
         return cell
     }
     
     // Open the view for a specific task list
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Try loading the "Detail" view controller and typecasting it to be TaskViewController
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "TaskList") as? TaskViewController {
-            // Set title to be the spoon count
-            vc.listName = String(spoonCounts[indexPath.row])
-
-            // Display the task list
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        
+        // Safely get the current cell
+        guard let currCell = self.tableView.cellForRow(at: indexPath) else { return }
+        
+        // Get the cell's spoon count
+        let rowSpoonCount = Int((currCell.textLabel?.text)!) ?? 0 // Nil coalescing to get the number
+        
+        // Open the view controller at this area and present it
+        navigationController?.pushViewController(spoonVCs[rowSpoonCount]!, animated: true)
+        
     }
     
     // Add new task to the main list
     @objc func addItem() {
-        let ac = UIAlertController(title: "Enter new task", message: nil, preferredStyle: .alert)
+        let ac = UIAlertController(title: "Enter a spoon count", message: nil, preferredStyle: .alert)
         ac.addTextField() // User enters answer here
         
         let submitTask = UIAlertAction(title: "Submit", style: .default) { // Trailing closure syntax
