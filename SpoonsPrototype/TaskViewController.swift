@@ -8,15 +8,17 @@
 import UIKit
 
 class TaskViewController: UITableViewController {
-    var listName: String?
-    var taskList = [String]()
+    var listName: String? // Title of this categry
+    var taskList = [String]() // Arry of tasks to show in this list
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // An add button
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
         
+        // Set the title
         if let name = listName {
             self.title = name
         }
@@ -29,7 +31,7 @@ class TaskViewController: UITableViewController {
         return taskList.count
     }
     
-    // How man
+    // Create a cell for each task
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Task", for: indexPath)
         cell.textLabel?.text = taskList[indexPath.row] // Add the task name to the cell
@@ -60,13 +62,14 @@ class TaskViewController: UITableViewController {
     // Enables deleting
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
+        // This is only swipe and delete, no edit mode here
         if editingStyle == UITableViewCell.EditingStyle.delete {
             taskList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath] , with: UITableView.RowAnimation.automatic )
         }
     }
     
-    // Enables swapping
+    // Enables swapping, same as swapping for the main view
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         taskList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
     }
