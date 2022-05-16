@@ -9,18 +9,17 @@ import UIKit
 
 class ViewController: UITableViewController {
     
-    var spoonCounts = [Int]() // Array containing just the categories of spoon counts the user gives
+    var spoonCounts = [1,2,3,4,5,6,7,8,9, 10] // Array containing just the categories of spoon counts the                                           // user gives. Fixing at a max of 10 spoons.
     
     var taskLists = [Int: [String]]() // Each spoon count assigned to a list of tasks that have that spoon                                  count
     
     var spoonVCs = [Int: TaskViewController]() // Associate a view controller with each spoon count
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Create add and edit buttons in the navigation bar
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editItems))
+        
         
         
     }
@@ -68,64 +67,13 @@ class ViewController: UITableViewController {
         
     }
     
-    // Add new task to the main list
-    @objc func addItem() {
-        // Prompt the user
-        let ac = UIAlertController(title: "Enter a spoon count", message: nil, preferredStyle: .alert)
-        ac.addTextField() // Give space for the answer
+   
         
-        // Processes when the user hits submit
-        let submitTask = UIAlertAction(title: "Submit", style: .default) { // Trailing closure syntax
-        
-            
-            // Specifies input into closure, use weak so that the closure does not caputure it strongly
-            // Avoids strong reference cycle that retains memory for a long time
-            [weak self, weak ac] action  in
-            guard let newTask = ac?.textFields?[0].text else {return} // Safely get the answer
-            self?.spoonCounts.append(Int(newTask) ?? 0) // FIXME, TEMPORARY NIL COALESCING
-                                                        // Add this to the array
-            self?.tableView.reloadData() // Reload the table view to show the user the change
-            
-        }
-        
-        // Add the submit button and present the whole alert controller
-        ac.addAction(submitTask)
-        present(ac, animated: true)
-        
-         
-    }
-    
-    // Handles what to do when the edit button is tapped
-    @objc func editItems() {
-        tableView.setEditing(!tableView.isEditing, animated: true)
-        
-        // If in edit mode, show a done button
-        if tableView.isEditing {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(editItems))
-        } else { // Otherwise present the edit button
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editItems))
-        }
-        
-        
-    }
-    
-    // Enables deleting in edit mode only
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == UITableViewCell.EditingStyle.delete && !isEditing {
-            spoonCounts.remove(at: indexPath.row) // Delete the item in the array
-            tableView.deleteRows(at: [indexPath] , with: UITableView.RowAnimation.automatic ) // Delete the row
-        }
-    }
-    
-    // Enables swapping in edit mode
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        spoonCounts.swapAt(sourceIndexPath.row, destinationIndexPath.row) // Swap positions in the array
     }
     
     
 
 
 
-}
+
 

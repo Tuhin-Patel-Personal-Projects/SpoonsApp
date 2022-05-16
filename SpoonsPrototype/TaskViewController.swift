@@ -9,11 +9,13 @@ import UIKit
 
 class TaskViewController: UITableViewController {
     var listName: String? // Title of this categry
+    var spoonCount = 0
     var taskList = [String]() // Arry of tasks to show in this list
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // An add button
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
