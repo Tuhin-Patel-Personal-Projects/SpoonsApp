@@ -17,3 +17,9 @@ PROGRESS UPDATES:
 5-14-2022: The app is currently getting closer to having bare mininum functionality. The inital page has been created, which allows users to add categories
 and also delete/reorder them. Each newly added category can send the user to a task list page, where they may add tasks and, just like the inital page,
 delete/reorder items in the list.
+
+5-16-2022: There were some core changes made to the app. Firstly, I decided to remove the ability of the user to create their own categories. This could
+add to needless confusion, especially when numbered categories start getting shifted around in an unorganized way. Instead, there are now ten spoon 
+categories already made, labeled 1-10. Secondly, I have began to research into ways to get a to-do list going. There is a dictionary in the main view
+controller now to store the to-do list, and i have created a bar button that will let the user view their to-do list. It is currently non-functional as
+its selector method is empty. Lastly, each TaskList will now have its own delegate back to the main view controller. This will make it easier to pass data from a TaskList to the main view controller. This is mainly needed so that users may add tasks to their to-do list.
