@@ -9,7 +9,7 @@ import UIKit
 
 class TaskViewController: UITableViewController {
     var listName: String? // Title of this categry
-    var spoonCount = 0
+    weak var delegate: ViewController!
     var taskList = [String]() // Arry of tasks to show in this list
 
     

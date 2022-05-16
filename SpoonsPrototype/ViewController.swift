@@ -15,8 +15,12 @@ class ViewController: UITableViewController {
     
     var spoonVCs = [Int: TaskViewController]() // Associate a view controller with each spoon count
     
+    var toDoList = [Int: String]() // Stores a to do list that the user may update
+    
     
     override func viewDidLoad() {
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "View To-Do List", style: .plain, target: self, action: #selector(viewToDo)) // Lets user go look at their to-do list
         super.viewDidLoad()
         
         
@@ -43,8 +47,10 @@ class ViewController: UITableViewController {
         
         // Create a view controller associated with this spoon count
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TaskList") as? TaskViewController {
-            // Set title to be the spoon count
-            vc.listName = String(currSpoonCount)
+           
+            vc.listName = String(currSpoonCount)  // Set title to be the spoon count
+            vc.delegate = self // Each task list should be able to use a delegate to give the main VC data,
+                                // primarily used when adding tasks to the do list.
             
             // Add to the dicitonary of View controllers
             spoonVCs[currSpoonCount] = vc
@@ -64,6 +70,10 @@ class ViewController: UITableViewController {
         
         // Open the view controller at this area and present it
         navigationController?.pushViewController(spoonVCs[rowSpoonCount]!, animated: true)
+        
+    }
+    
+    @objc viewToDo() {
         
     }
     
