@@ -15,12 +15,12 @@ class ViewController: UITableViewController {
     
     var spoonVCs = [Int: TaskViewController]() // Associate a view controller with each spoon count
     
-    var toDoList = [Int: String]() // Stores a to do list that the user may update
+    var toDoList = [String]()// Stores a to do list that the user may update
     
     
     override func viewDidLoad() {
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "View To-Do List", style: .plain, target: self, action: #selector(viewToDo)) // Lets user go look at their to-do list
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "View To-Do List", style: .plain, target: self, action: #selector(showToDoList)) // Lets user go look at their to-do list
         super.viewDidLoad()
         
         
@@ -73,13 +73,19 @@ class ViewController: UITableViewController {
         
     }
     
-    @objc viewToDo() {
+    // Sends the user to a view that shows their current to do list
+    @objc func showToDoList() {
         
     }
     
    
-        
+    // THESE FUNCTIONS ARE CALLED BY OTHER VIEWS, NOT THIS MAIN VIEW
+    
+    // Called by TaskViewController to send to the to-do list
+    func placeInToDo(_ task: String) {
+        toDoList.append(task)
     }
+}
     
     
 

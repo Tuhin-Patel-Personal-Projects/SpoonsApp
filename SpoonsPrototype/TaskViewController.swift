@@ -8,9 +8,10 @@
 import UIKit
 
 class TaskViewController: UITableViewController {
-    var listName: String? // Title of this categry
+    var listName: String! // Title of this categry
     weak var delegate: ViewController!
     var taskList = [String]() // Arry of tasks to show in this list
+    var selectedTasks = [String]() // Array of tasks the user selects to send to a to-do list
 
     
     override func viewDidLoad() {
@@ -19,6 +20,9 @@ class TaskViewController: UITableViewController {
         
         // An add button
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
+        
+        // A button to enable selecting tasks to send to the to do list
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectTasks))
         
         // Set the title
         if let name = listName {
@@ -71,10 +75,73 @@ class TaskViewController: UITableViewController {
         }
     }
     
-    // Enables swapping, same as swapping for the main view
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        taskList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+    // Will mark these as tasks currently selected by the user
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // The user should only be allowed to do this if multiple-row selection is active
+        if (self.tableView.allowsMultipleSelection) {
+            
+            // Safely get the current cell
+            guard let currCell = self.tableView.cellForRow(at: indexPath) else { return }
+            
+            // Safely get the text
+            guard let cellContents = currCell.textLabel?.text else { return }
+            
+            // Move the selected item to the array
+            selectedTasks.append(cellContents)
+        }
     }
+    
+    // Remove a task from the selected tasks array if its row is deselected
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        // Safely get the current cell
+        guard let currCell = self.tableView.cellForRow(at: indexPath) else { return }
+        
+        // Safely get the text
+        guard let cellContents = currCell.textLabel?.text else { return }
+        
+        // Safely the index of the item that should be removed, then remove at that index
+        guard let index = selectedTasks.firstIndex(of: cellContents) else {return}
+        selectedTasks.remove(at: index)
+    }
+    
+    
+    
+
+    
+    // When the select button is pressed, let the user start selectng tasks to send to the to-do list
+    @objc func selectTasks() {
+        self.tableView.allowsMultipleSelection = true // Let the user pick multiple rows
+        
+        // Sumbit items to be sent to the to do list
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Submit", style: .plain, target: self, action: #selector(submitTasks))
+        
+    }
+    
+    // Handles the job of taking tasks selected by the user and moving them to the to-do list
+    @objc func submitTasks() {
+       
+        var toDoItem: String // Will be of the format "taskName, spoonCount", will be sent to to-do list
+        var index: Int // Stores where the task is listed in the taskList array
+        
+        // Loop through the selected task array
+        for task in selectedTasks {
+            // Will want to remove the list from the main tasklist so that it can later be reviewed from view
+            index = taskList.firstIndex(of: task)! // Will never be nil, so force unwrap
+            taskList.remove(at: index)
+            
+            // Construct the final string
+            toDoItem = "\(task), \(listName)"
+            
+            // Now add to the to do list
+            delegate.placeInToDo(toDoItem)
+        }
+        
+        // Lastly, re-add the select button and reload the table view to remove all of the final selections
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectTasks))
+        self.tableView.reloadData()
+        
+    }
+    
 
     /*
     // MARK: - Navigation
