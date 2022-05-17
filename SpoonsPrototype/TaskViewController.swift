@@ -133,7 +133,7 @@ class TaskViewController: UITableViewController {
             toDoString = "\(task), \(listName)"
             
             // Now add to the to do list
-            delegate.placeInToDo(toDoItem)
+            delegate.placeInToDo(toDoString)
         }
         
         // Lastly, re-add the select button and reload the table view to remove all of the final selections
