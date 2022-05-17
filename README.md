@@ -23,3 +23,5 @@ add to needless confusion, especially when numbered categories start getting shi
 categories already made, labeled 1-10. Secondly, I have began to research into ways to get a to-do list going. There is a dictionary in the main view
 controller now to store the to-do list, and i have created a bar button that will let the user view their to-do list. It is currently non-functional as
 its selector method is empty. Lastly, each TaskList will now have its own delegate back to the main view controller. This will make it easier to pass data from a TaskList to the main view controller. This is mainly needed so that users may add tasks to their to-do list.
+
+5-17-2022: There is now a left-bar button item on the TaskLists views. By default it is Select, which allows users to then select multiple rows. The left-bar button turns into Submit during this time. Once Submit is pressed, all selected tasks are moved to a to-do list and removed from the view.
