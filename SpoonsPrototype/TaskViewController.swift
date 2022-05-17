@@ -120,7 +120,7 @@ class TaskViewController: UITableViewController {
     // Handles the job of taking tasks selected by the user and moving them to the to-do list
     @objc func submitTasks() {
        
-        var toDoItem: String // Will be of the format "taskName, spoonCount", will be sent to to-do list
+        var toDoString: String // Will be of the format "taskName, spoonCount", will be sent to to-do list
         var index: Int // Stores where the task is listed in the taskList array
         
         // Loop through the selected task array
@@ -130,7 +130,7 @@ class TaskViewController: UITableViewController {
             taskList.remove(at: index)
             
             // Construct the final string
-            toDoItem = "\(task), \(listName)"
+            toDoString = "\(task), \(listName)"
             
             // Now add to the to do list
             delegate.placeInToDo(toDoItem)
