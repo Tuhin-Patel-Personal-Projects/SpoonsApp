@@ -75,6 +75,16 @@ class ViewController: UITableViewController {
     
     // Sends the user to a view that shows their current to do list
     @objc func showToDoList() {
+        // Create the view
+        if let vc = storyboard?.instantiateViewController(identifier: "ToDoList") as? ToDoListTableViewController {
+            
+            // Give it the array
+            vc.toDoTasks = toDoList
+            
+            // Push the view controller
+            navigationController?.pushViewController(vc, animated: true)
+            
+        }
         
     }
     

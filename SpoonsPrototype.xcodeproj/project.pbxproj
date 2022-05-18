@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		592950E228358F390087EB97 /* ToDoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592950E128358F390087EB97 /* ToDoListTableViewController.swift */; };
 		5932073A282C29C500EAC298 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598BA4222825BF00007B9A75 /* SceneDelegate.swift */; };
 		596EE97C282ECC0800BC894B /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596EE97B282ECC0800BC894B /* TaskViewController.swift */; };
 		598BA4212825BF00007B9A75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598BA4202825BF00007B9A75 /* AppDelegate.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		592950E128358F390087EB97 /* ToDoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTableViewController.swift; sourceTree = "<group>"; };
 		596EE97B282ECC0800BC894B /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		598BA41D2825BF00007B9A75 /* SpoonsPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpoonsPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		598BA4202825BF00007B9A75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				598BA4202825BF00007B9A75 /* AppDelegate.swift */,
 				598BA4222825BF00007B9A75 /* SceneDelegate.swift */,
 				598BA4242825BF00007B9A75 /* ViewController.swift */,
+				592950E128358F390087EB97 /* ToDoListTableViewController.swift */,
 				596EE97B282ECC0800BC894B /* TaskViewController.swift */,
 				598BA4292825BF02007B9A75 /* Assets.xcassets */,
 				598BA4342825BF1B007B9A75 /* Main.storyboard */,
@@ -144,6 +147,7 @@
 				596EE97C282ECC0800BC894B /* TaskViewController.swift in Sources */,
 				598BA4212825BF00007B9A75 /* AppDelegate.swift in Sources */,
 				5932073A282C29C500EAC298 /* SceneDelegate.swift in Sources */,
+				592950E228358F390087EB97 /* ToDoListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

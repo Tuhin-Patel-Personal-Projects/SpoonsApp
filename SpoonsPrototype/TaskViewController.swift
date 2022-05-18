@@ -18,6 +18,7 @@ class TaskViewController: UITableViewController {
         super.viewDidLoad()
         
         
+        self.navigationItem.leftItemsSupplementBackButton = true
         // An add button
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
         
@@ -130,11 +131,15 @@ class TaskViewController: UITableViewController {
             taskList.remove(at: index)
             
             // Construct the final string
-            toDoString = "\(task), \(listName)"
+            toDoString = "\(task), \(listName!)"
             
             // Now add to the to do list
             delegate.placeInToDo(toDoString)
         }
+        
+        // Disable the ability to select multiple rows
+        self.tableView.allowsSelection = false
+        
         
         // Lastly, re-add the select button and reload the table view to remove all of the final selections
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectTasks))
