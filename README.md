@@ -29,3 +29,5 @@ its selector method is empty. Lastly, each TaskList will now have its own delega
 5-18-2022: Fixed an issue where the user could still collect multiple rows in the TaskViews after pressing Submit. Also corrected an issue with the 
 TaskViews where thee presence of the Select/Submit buttons removed the Back button. Lastly, added function to the "View To-Do List" button by having it
 bring up a list of all the tasks currently placed there.
+
+5-19-2022: Added functionality to the to-do list view that lets the user mark tasks as done so that they can be removed from the view.
