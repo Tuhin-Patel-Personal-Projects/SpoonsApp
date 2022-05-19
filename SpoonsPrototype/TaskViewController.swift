@@ -45,7 +45,7 @@ class TaskViewController: UITableViewController {
         return cell
     }
     
-    // Add new task to the main list
+    // Add new task to the list
     @objc func addItem() {
         let ac = UIAlertController(title: "Enter new task", message: nil, preferredStyle: .alert)
         ac.addTextField() // User enters answer here
@@ -66,7 +66,7 @@ class TaskViewController: UITableViewController {
         present(ac, animated: true)
     }
     
-    // Enables deleting
+    // Enables user to delete tasks
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         // This is only swipe and delete, no edit mode here
@@ -76,7 +76,8 @@ class TaskViewController: UITableViewController {
         }
     }
     
-    // Will mark these as tasks currently selected by the user
+    // Will mark these as tasks currently selected by the user by storing them in another
+    // arrat
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // The user should only be allowed to do this if multiple-row selection is active
         if (self.tableView.allowsMultipleSelection) {
@@ -137,9 +138,11 @@ class TaskViewController: UITableViewController {
             delegate.placeInToDo(toDoString)
         }
         
+        // Empty selected tasks now that they are gone
+        selectedTasks.removeAll()
+        
         // Disable the ability to select multiple rows
         self.tableView.allowsSelection = false
-        
         
         // Lastly, re-add the select button and reload the table view to remove all of the final selections
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectTasks))
