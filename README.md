@@ -31,3 +31,5 @@ TaskViews where thee presence of the Select/Submit buttons removed the Back butt
 bring up a list of all the tasks currently placed there.
 
 5-19-2022: Added functionality to the to-do list view that lets the user mark tasks as done so that they can be removed from the view.
+
+3-20-2022: Minor change, removed an array from ViewController.swift called taskLists as it served no real purpose
