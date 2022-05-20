@@ -8,7 +8,7 @@
 import UIKit
 
 class TaskViewController: UITableViewController {
-    var listName: String! // Title of this categry
+    var listName: Int! // Title of this categry
     weak var delegate: ViewController!
     var taskList = [String]() // Arry of tasks to show in this list
     var selectedTasks = [String]() // Array of tasks the user selects to send to a to-do list
@@ -25,11 +25,7 @@ class TaskViewController: UITableViewController {
         // A button to enable selecting tasks to send to the to do list
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectTasks))
         
-        // Set the title
-        if let name = listName {
-            self.title = name
-        }
-
+        self.title = String(listName)
        
     }
     
@@ -58,6 +54,7 @@ class TaskViewController: UITableViewController {
             [weak self, weak ac] action  in
             guard let newTask = ac?.textFields?[0].text else {return}
             self?.taskList.append(newTask) // Add the new task to the list
+            
             self?.tableView.reloadData() // Reload the view
             
         }

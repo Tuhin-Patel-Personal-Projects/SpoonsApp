@@ -11,7 +11,6 @@ class ViewController: UITableViewController {
     
     var spoonCounts = [1,2,3,4,5,6,7,8,9, 10] // Array containing just the categories of spoon counts the                                           // user gives. Fixing at a max of 10 spoons.
     
-    var taskLists = [Int: [String]]() // Each spoon count assigned to a list of tasks that have that spoon                                  count
     
     var spoonVCs = [Int: TaskViewController]() // Associate a view controller with each spoon count
     
@@ -43,14 +42,19 @@ class ViewController: UITableViewController {
         let currSpoonCount = spoonCounts[indexPath.row] // Get the spoon count once
         cell.textLabel?.text = String(currSpoonCount) // Cast the int as a string so it can be                                                         used as a label
         
-        taskLists[currSpoonCount] = [String]() // Create a new task list for this category of spoon count
+        
+        
+        //tempTaskLists[currSpoonCount] = [Task]() // Same as above
         
         // Create a view controller associated with this spoon count
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TaskList") as? TaskViewController {
            
-            vc.listName = String(currSpoonCount)  // Set title to be the spoon count
+            vc.listName = currSpoonCount // Set title to be the spoon count
+            vc.taskList = [String]()
             vc.delegate = self // Each task list should be able to use a delegate to give the main VC data,
                                 // primarily used when adding tasks to the do list.
+            
+            
             
             // Add to the dicitonary of View controllers
             spoonVCs[currSpoonCount] = vc
@@ -90,6 +94,7 @@ class ViewController: UITableViewController {
     
    
     // THESE FUNCTIONS ARE CALLED BY OTHER VIEWS, NOT THIS MAIN VIEW
+    
     
     // Called by TaskViewController to send to the to-do list
     func placeInToDo(_ task: String) {
