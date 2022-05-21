@@ -122,6 +122,8 @@ class TaskViewController: UITableViewController {
         var toDoString: String // Will be of the format "taskName, spoonCount", will be sent to to-do list
         var index: Int // Stores where the task is listed in the taskList array
         
+        // var toDoItem: Task UNCOMMENT LATER
+        
         // Loop through the selected task array
         for task in selectedTasks {
             // Will want to remove the list from the main tasklist so that it can later be reviewed from view
@@ -131,8 +133,11 @@ class TaskViewController: UITableViewController {
             // Construct the final string
             toDoString = "\(task), \(listName!)"
             
+            //toDoItem.taskName = task UNCOMMENT LATER
+            //toDoItem.taskSpoonCount = listName UNCOMMENT LATER
+            
             // Now add to the to do list
-            delegate.placeInToDo(toDoString)
+            delegate.placeInToDo(toDoString) // CHANGE LATER TO ADD THE TASK
         }
         
         // Empty selected tasks now that they are gone

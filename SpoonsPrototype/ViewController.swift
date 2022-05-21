@@ -9,12 +9,12 @@ import UIKit
 
 class ViewController: UITableViewController {
     
-    var spoonCounts = [1,2,3,4,5,6,7,8,9, 10] // Array containing just the categories of spoon counts the                                           // user gives. Fixing at a max of 10 spoons.
+    var spoonCounts = [1,2,3,4,5,6,7,8,9,10] // Array containing just the categories of spoon counts the                                           // user gives. Fixing at a max of 10 spoons.
     
     
     var spoonVCs = [Int: TaskViewController]() // Associate a view controller with each spoon count
     
-    var toDoList = [String]()// Stores a to do list that the user may update
+    var toDoList = [String]()// Stores a to do list that the user may update (CHANGE TO ARRAY OF TASK ITEMS)
     
     
     override func viewDidLoad() {
@@ -99,6 +99,7 @@ class ViewController: UITableViewController {
     // Called by TaskViewController to send to the to-do list
     func placeInToDo(_ task: String) {
         toDoList.append(task)
+        
     }
 }
     

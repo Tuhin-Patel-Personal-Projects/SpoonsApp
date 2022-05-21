@@ -9,7 +9,9 @@ import UIKit
 
 class ToDoListTableViewController: UITableViewController {
     var toDoTasks = [String]() // Tasks that have been sent to the to-do list
-    var completedTasks = [String]() // Tasks selected by the user that have been completed
+    var completedTasks = [String]() // Tasks selected by the user that have been completed(CHANGE TO TASKS ARRAY LATER)
+    
+    var tooDoTasks = [Task]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +35,12 @@ class ToDoListTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItem", for: indexPath)
         
+        // Get a task from the array
+        //let task = tooDoTasks[indexPath.row] UNCOMMENT
+        
         cell.textLabel?.text = toDoTasks[indexPath.row] // Labels are in format of                                                      //"taskName, spoonCount"
+        
+        // cell.textLabel?.text = "\(task.taskName), \(task.taskSpoonCount)" UNCOMMENT
         
         return cell
     }
@@ -86,6 +93,9 @@ class ToDoListTableViewController: UITableViewController {
             // Get the index of where task is in toDoTasks
             index = toDoTasks.firstIndex(of: task)! // Will never be nil
             toDoTasks.remove(at: index)
+            
+            // UNCOMMENT later
+            //ooDoTasks.remove(at: index)
         }
         
         // Empty completed tasks now that these items are no longer relevent
