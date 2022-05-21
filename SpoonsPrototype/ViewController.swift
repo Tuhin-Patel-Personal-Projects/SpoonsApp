@@ -14,7 +14,7 @@ class ViewController: UITableViewController {
     
     var spoonVCs = [Int: TaskViewController]() // Associate a view controller with each spoon count
     
-    var toDoList = [String]()// Stores a to do list that the user may update (CHANGE TO ARRAY OF TASK ITEMS)
+    var toDoList = [String]()// Stores a to do list that the user may update (CHANGE TO ARRAY OF TASK ITEMS
     
     
     override func viewDidLoad() {
