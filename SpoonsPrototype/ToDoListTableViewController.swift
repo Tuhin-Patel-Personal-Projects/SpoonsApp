@@ -74,6 +74,9 @@ class ToDoListTableViewController: UITableViewController {
         completedTasks.remove(at: index)
     }
     
+    
+    // FUNCTIONS FOR ON-SCREEN BUTTONS
+    
     // When the user presses "Mark as done", they should be allowed to select multiple
     // tasks
     @objc func allowTaskSelection() {

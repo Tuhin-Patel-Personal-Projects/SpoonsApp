@@ -41,28 +41,7 @@ class TaskViewController: UITableViewController {
         return cell
     }
     
-    // Add new task to the list
-    @objc func addItem() {
-        let ac = UIAlertController(title: "Enter new task", message: nil, preferredStyle: .alert)
-        ac.addTextField() // User enters answer here
-        
-        let submitTask = UIAlertAction(title: "Submit", style: .default) { // Trailing closure syntax
-        
-            
-            // Specifies input into closure, use weak so that the closure does not caputure it strongly
-            // Avoids strong reference cycle that retains memory for a long time
-            [weak self, weak ac] action  in
-            guard let newTask = ac?.textFields?[0].text else {return}
-            self?.taskList.append(newTask) // Add the new task to the list
-            
-            self?.tableView.reloadData() // Reload the view
-            
-        }
-        ac.addAction(submitTask)
-        
-        present(ac, animated: true)
-    }
-    
+   
     // Enables user to delete tasks
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
@@ -103,9 +82,30 @@ class TaskViewController: UITableViewController {
         selectedTasks.remove(at: index)
     }
     
+    // FUNCTIONS FOR ON-SCREEN BUTTONS
     
+    // Add new task to the list
+    @objc func addItem() {
+        let ac = UIAlertController(title: "Enter new task", message: nil, preferredStyle: .alert)
+        ac.addTextField() // User enters answer here
+        
+        let submitTask = UIAlertAction(title: "Submit", style: .default) { // Trailing closure syntax
+        
+            
+            // Specifies input into closure, use weak so that the closure does not caputure it strongly
+            // Avoids strong reference cycle that retains memory for a long time
+            [weak self, weak ac] action  in
+            guard let newTask = ac?.textFields?[0].text else {return}
+            self?.taskList.append(newTask) // Add the new task to the list
+            
+            self?.tableView.reloadData() // Reload the view
+            
+        }
+        ac.addAction(submitTask)
+        
+        present(ac, animated: true)
+    }
     
-
     
     // When the select button is pressed, let the user start selectng tasks to send to the to-do list
     @objc func selectTasks() {

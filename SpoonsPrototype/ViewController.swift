@@ -77,6 +77,8 @@ class ViewController: UITableViewController {
         
     }
     
+    // FUNCTIONS FOR BUTTONS ON THE SCREEN
+    
     // Sends the user to a view that shows their current to do list
     @objc func showToDoList() {
         // Create the view
