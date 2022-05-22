@@ -14,7 +14,7 @@ class ViewController: UITableViewController {
     
     var spoonVCs = [Int: TaskViewController]() // Associate a view controller with each spoon count
     
-    var toDoList = [String]()// Stores a to do list that the user may update (CHANGE TO ARRAY OF TASK ITEMS
+    var toDoList = [Task]()// Stores a to do list that the user may update (CHANGE TO ARRAY OF TASK ITEMS
     
     
     override func viewDidLoad() {
@@ -86,7 +86,6 @@ class ViewController: UITableViewController {
             
             // Give it the array
             vc.toDoTasks = toDoList
-            
             // Push the view controller
             navigationController?.pushViewController(vc, animated: true)
             
@@ -99,7 +98,7 @@ class ViewController: UITableViewController {
     
     
     // Called by TaskViewController to send to the to-do list
-    func placeInToDo(_ task: String) {
+    func placeInToDo(_ task: Task) {
         toDoList.append(task)
         
     }

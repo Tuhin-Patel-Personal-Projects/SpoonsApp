@@ -8,10 +8,10 @@
 import UIKit
 
 class ToDoListTableViewController: UITableViewController {
-    var toDoTasks = [String]() // Tasks that have been sent to the to-do list
-    var completedTasks = [String]() // Tasks selected by the user that have been completed(CHANGE TO TASKS ARRAY LATER)
+    var toDoTasks = [Task]() // Tasks that have been sent to the to-do list
+    var completedTasks = [Task]() // Tasks selected by the user that have been completed(CHANGE TO TASKS ARRAY LATER)
     
-    var tooDoTasks = [Task]()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +35,9 @@ class ToDoListTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItem", for: indexPath)
         
-        // Get a task from the array
-        //let task = tooDoTasks[indexPath.row] UNCOMMENT
-        
-        cell.textLabel?.text = toDoTasks[indexPath.row] // Labels are in format of                                                      //"taskName, spoonCount"
-        
-        // cell.textLabel?.text = "\(task.taskName), \(task.taskSpoonCount)" UNCOMMENT
+
+        let task = toDoTasks[indexPath.row]
+        cell.textLabel?.text = "\(task.taskName), \(task.taskSpoonCount)" // Display in the format of "name, spoonCount"
         
         return cell
     }
@@ -49,29 +46,16 @@ class ToDoListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // The user should only be allowed to do this if multiple-row selection is active
         if (self.tableView.allowsMultipleSelection) {
-            
-            // Safely get the current cell
-            guard let currCell = self.tableView.cellForRow(at: indexPath) else { return }
-            
-            // Safely get the text
-            guard let cellContents = currCell.textLabel?.text else { return }
-            
+          
             // Move the selected item to the array of completed tasks
-            completedTasks.append(cellContents)
+            completedTasks.append(toDoTasks[indexPath.row])
         }
     }
     
     // Remove a task from the array of completed items if it is deselected
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        // Safely get the current cell
-        guard let currCell = self.tableView.cellForRow(at: indexPath) else { return }
-        
-        // Safely get the text
-        guard let cellContents = currCell.textLabel?.text else { return }
-        
-        // Safely the index of the item that should be removed, then remove at that index
-        guard let index = completedTasks.firstIndex(of: cellContents) else {return}
-        completedTasks.remove(at: index)
+        // Remove this task from the array of completed tasks
+        completedTasks.remove(at: indexPath.row)
     }
     
     
@@ -97,8 +81,7 @@ class ToDoListTableViewController: UITableViewController {
             index = toDoTasks.firstIndex(of: task)! // Will never be nil
             toDoTasks.remove(at: index)
             
-            // UNCOMMENT later
-            //ooDoTasks.remove(at: index)
+            
         }
         
         // Empty completed tasks now that these items are no longer relevent
