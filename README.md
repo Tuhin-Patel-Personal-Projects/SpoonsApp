@@ -32,6 +32,6 @@ bring up a list of all the tasks currently placed there.
 
 5-19-2022: Added functionality to the to-do list view that lets the user mark tasks as done so that they can be removed from the view.
 
-3-20-2022: Minor change, removed an array from ViewController.swift called taskLists as it served no real purpose
+5-20-2022: Minor change, removed an array from ViewController.swift called taskLists as it served no real purpose
 
-3-22-2022: Modified the Task struct to now have an initalizer, making it possible to create changeable instances of it. Task also now confroms to equatable, allowing arrays of Tasks to have firstIndexOf used on them. Lastly, the toDoListviewController's code was changed to now store all of its data in arrays of Task structs instead of Strings. This will be used for implementing a feature later where users can send a task back to its original task list.
+5-22-2022: Modified the Task struct to now have an initalizer, making it possible to create changeable instances of it. Task also now confroms to equatable, allowing arrays of Tasks to have firstIndexOf used on them. Lastly, the toDoListviewController's code was changed to now store all of its data in arrays of Task structs instead of Strings. This will be used for implementing a feature later where users can send a task back to its original task list.
