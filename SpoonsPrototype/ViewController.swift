@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class CategoryViewController: UITableViewController {
     
     var spoonCounts = [1,2,3,4,5,6,7,8,9,10] // Array containing just the categories of spoon counts the                                           // user gives. Fixing at a max of 10 spoons.
     
@@ -20,6 +20,10 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "View To-Do List", style: .plain, target: self, action: #selector(showToDoList)) // Lets user go look at their to-do list
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Set Spoons", style: .plain, target: self, action: #selector(setSpoonCount)) // Lets user set a spoon limit for themselves.
+        
+        
         super.viewDidLoad()
         
         
@@ -63,19 +67,7 @@ class ViewController: UITableViewController {
         return cell
     }
     
-    // Open the view for a specific task list
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // Safely get the current cell
-        guard let currCell = self.tableView.cellForRow(at: indexPath) else { return }
-        
-        // Get the cell's spoon count(it will always be the text)
-        let rowSpoonCount = Int((currCell.textLabel?.text)!) ?? 0 // Nil coalescing to get the number
-        
-        // Open the view controller at this area and present it
-        navigationController?.pushViewController(spoonVCs[rowSpoonCount]!, animated: true)
-        
-    }
+   
     
     // FUNCTIONS FOR BUTTONS ON THE SCREEN
     
@@ -90,6 +82,26 @@ class ViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
             
         }
+        
+    }
+    
+    // Let user set a spoon count for their day
+    @objc func setSpoonCount() {
+        
+    }
+    
+    
+    // Open the view for a specific task list
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Safely get the current cell
+        guard let currCell = self.tableView.cellForRow(at: indexPath) else { return }
+        
+        // Get the cell's spoon count(it will always be the text)
+        let rowSpoonCount = Int((currCell.textLabel?.text)!) ?? 0 // Nil coalescing to get the number
+        
+        // Open the view controller at this area and present it
+        navigationController?.pushViewController(spoonVCs[rowSpoonCount]!, animated: true)
         
     }
     

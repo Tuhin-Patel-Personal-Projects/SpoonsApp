@@ -9,7 +9,7 @@ import UIKit
 
 class TaskViewController: UITableViewController {
     var listName: Int! // Title of this categry
-    weak var delegate: ViewController!
+    weak var delegate: CategoryViewController!
     var taskList = [String]() // Arry of tasks to show in this list
     var selectedTasks = [String]() // Array of tasks the user selects to send to a to-do list
 
