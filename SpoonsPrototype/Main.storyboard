@@ -94,15 +94,31 @@
             </objects>
             <point key="canvasLocation" x="4094.202898550725" y="95.758928571428569"/>
         </scene>
-        <!--View Controller-->
+        <!--Selection View Controller-->
         <scene sceneID="Bbe-RF-pp3">
             <objects>
-                <viewController id="9bM-sI-3RV" customClass="ViewController" customModule="SpoonsPrototype" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9bM-sI-3RV" customClass="SelectionViewController" customModule="SpoonsPrototype" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Dt-k0-A4P">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="IsH-lq-uEx">
+                                <rect key="frame" x="82" y="250" width="250" height="300"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="49"/>
+                                <state key="normal" title="Set Your Spoons For Today!">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="newDay:" destination="9bM-sI-3RV" eventType="touchUpInside" id="hmz-iw-rIA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="eN3-x8-9Gr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="IsH-lq-uEx" firstAttribute="top" secondItem="eN3-x8-9Gr" secondAttribute="top" constant="206" id="Uhy-nc-XWF"/>
+                            <constraint firstItem="IsH-lq-uEx" firstAttribute="centerX" secondItem="eN3-x8-9Gr" secondAttribute="centerX" id="rNe-sY-dZl"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sX2-Hy-gNi"/>
                 </viewController>
@@ -130,6 +146,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
