@@ -15,6 +15,8 @@ class CategoryViewController: UITableViewController {
     
     var toDoList = [Task]()// Stores a to do list that the user may update (CHANGE TO ARRAY OF TASK ITEMS
     
+    var maxSpoons: Int! // Stores the spoon count limit the user has input for the day
+    
     
     override func viewDidLoad() {
         
