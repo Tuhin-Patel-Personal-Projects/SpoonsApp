@@ -37,3 +37,5 @@ bring up a list of all the tasks currently placed there.
 5-22-2022: Modified the Task struct to now have an initalizer, making it possible to create changeable instances of it. Task also now confroms to equatable, allowing arrays of Tasks to have firstIndexOf used on them. Lastly, the toDoListviewController's code was changed to now store all of its data in arrays of Task structs instead of Strings. This will be used for implementing a feature later where users can send a task back to its original task list.
 
 6-09-2022: Created a new view controller called SelectionViewController. This view has a single button which the user will be able to select to enter what their spoon count for that given day is. Functionality for this button will be added soon.
+
+6-11-2022: Renamed the ViewController.swift file to CategoryViewController to better specify its purpose of showing the spoon categories. Changed SelectionViewController to the default ViewController and added functionality to the button to now let a user enter their spoons for the day. Upon hitting submit, a CategoryView is shown.
