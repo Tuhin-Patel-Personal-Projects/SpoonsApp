@@ -30,7 +30,7 @@ class SelectionViewController: UIViewController {
             [weak self, weak ac] action  in
             // Create the CateogryView
             if let vc = self?.storyboard?.instantiateViewController(identifier: "CategoryView") as? CategoryViewController {
-                vc.maxSpoons = Int((ac?.textFields?[0].text ?? "20")) // Default max of 20
+                //vc.maxSpoons = Int((ac?.textFields?[0].text ?? "20")) // Default max of 20
             
                 // Push the view controller
                 self?.navigationController?.pushViewController(vc, animated: true)

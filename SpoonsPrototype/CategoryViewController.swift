@@ -15,16 +15,25 @@ class CategoryViewController: UITableViewController {
     
     var toDoList = [Task]()// Stores a to do list that the user may update (CHANGE TO ARRAY OF TASK ITEMS
     
-    var maxSpoons: Int! // Stores the spoon count limit the user has input for the day
+    var maxSpoons: Int = 0 { // Stores the spoon count limit the user has input for the day
+        didSet {
+            self.title = "0/\(maxSpoons)" // Change title every time max spoons is changed
+        }
+    }
     
-    
+    var usedSpoons: Int = 0 { // Updated every time a task is added to the to-do list
+        didSet {
+            self.title = "\(usedSpoons)/\(maxSpoons)" // Change title every usedSpoons
+                                                      // changes
+        }
+    }
     override func viewDidLoad() {
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "View To-Do List", style: .plain, target: self, action: #selector(showToDoList)) // Lets user go look at their to-do list
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Day", style: .plain, target: self, action: #selector(newDay)) // Lets user start a new day by entering their max spoons for the day
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Set Spoons", style: .plain, target: self, action: #selector(setSpoonCount)) // Lets user set a spoon limit for themselves.
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "To-Do", style: .plain, target: self, action: #selector(showToDoList)) // Lets user go look at their to-do list
         
-        
+       
         super.viewDidLoad()
         
         
@@ -49,8 +58,7 @@ class CategoryViewController: UITableViewController {
         
         
         
-        //tempTaskLists[currSpoonCount] = [Task]() // Same as above
-        
+         
         // Create a view controller associated with this spoon count
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TaskList") as? TaskViewController {
            
@@ -87,8 +95,31 @@ class CategoryViewController: UITableViewController {
     }
     
     // Let user set a spoon count for their day
-    @objc func setSpoonCount() {
+    @objc func newDay() {
+        // Create an action controller that asks the user for today's spoon count
+        let ac = UIAlertController(title: "How many spoons do you have today?", message: nil, preferredStyle: .alert)
+        ac.addTextField() // User enters response here
         
+        // Make it so user can only enter numbers
+        ac.textFields![0].keyboardType = .numberPad
+        
+        // Create a submit action
+        let submitSpoons = UIAlertAction(title: "Submit", style: .default) { // Trailing closure syntax
+        
+            
+            // Specifies input into closure, use weak so that the closure does not caputure it strongly
+            // Avoids strong reference cycle that retains memory for a long time
+            [weak self, weak ac] action  in
+            guard let todaysSpoons = ac?.textFields?[0].text else {return}
+            self?.maxSpoons = Int(todaysSpoons)! // Set max spoons
+            
+        }
+        
+        // Give ac the submit action
+        ac.addAction(submitSpoons)
+        
+        // Present the action controller
+        present(ac, animated: true)
     }
     
     

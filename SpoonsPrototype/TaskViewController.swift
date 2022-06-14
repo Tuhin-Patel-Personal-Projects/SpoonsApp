@@ -19,6 +19,8 @@ class TaskViewController: UITableViewController {
         
         
         self.navigationItem.leftItemsSupplementBackButton = true
+        self.navigationItem.backButtonTitle = ""
+
         // An add button
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
         
