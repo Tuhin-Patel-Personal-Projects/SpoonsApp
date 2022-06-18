@@ -30,8 +30,6 @@ its selector method is empty. Lastly, each TaskList will now have its own delega
 TaskViews where thee presence of the Select/Submit buttons removed the Back button. Lastly, added function to the "View To-Do List" button by having it
 bring up a list of all the tasks currently placed there.
 
-
-
 5-19-2022: Added functionality to the to-do list view that lets the user mark tasks as done so that they can be removed from the view.
 
 5-20-2022: Minor change, removed an array from ViewController.swift called taskLists as it served no real purpose
@@ -43,3 +41,5 @@ bring up a list of all the tasks currently placed there.
 6-11-2022: Renamed the ViewController.swift file to CategoryViewController to better specify its purpose of showing the spoon categories. Changed SelectionViewController to the default ViewController and added functionality to the button to now let a user enter their spoons for the day. Upon hitting submit, a CategoryView is shown.
 
 6-14-2022: Decided that the approach with SelectionViewController does not accomplish the desired result. Moved CategoryView back to the main view, and added a new button called New Day. When pressed, the user may enter how many spoons they have for that given day, and the title will update to show how many spoons they have used out of their maximum spoon count. The number of used spoons is based upon items added to the to-do list. Also their is an issue with back buttons not showing the correct text.
+
+6-18-2022: Added a new function in CategoryView and an extra line in TaskView controller to now update the usedspoons/maxSpoons title at the top of the Category View
