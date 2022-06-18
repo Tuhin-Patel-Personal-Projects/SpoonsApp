@@ -144,8 +144,13 @@ class CategoryViewController: UITableViewController {
     // Called by TaskViewController to send to the to-do list
     func placeInToDo(_ task: Task) {
         toDoList.append(task)
-        
     }
+    
+    // Called whenever a task is placed in the toDoList
+    func updateUsedSpoons(_ taskSpoonCount: Int) {
+        usedSpoons += taskSpoonCount
+    }
+    
 }
     
     

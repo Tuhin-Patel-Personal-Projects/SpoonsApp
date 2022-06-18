@@ -125,15 +125,16 @@ class TaskViewController: UITableViewController {
         
         var toDoItem = Task() // Will be used to send Task items to the toDoList array
         
+        // Update the amount of used spoons
+        delegate.updateUsedSpoons(listName * selectedTasks.count)
+        
         // Loop through the selected task array
         for task in selectedTasks {
-            // Will want to remove the list from the main tasklist so that it can later be reviewed from view
-            index = taskList.firstIndex(of: task)! // Will never be nil, so force unwrap
-            taskList.remove(at: index)
-            
+
             // Construct the final task
             toDoItem.taskName = task
             toDoItem.taskSpoonCount = listName
+           
            
             
             // Now add to the to do list
