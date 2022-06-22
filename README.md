@@ -43,3 +43,5 @@ bring up a list of all the tasks currently placed there.
 6-14-2022: Decided that the approach with SelectionViewController does not accomplish the desired result. Moved CategoryView back to the main view, and added a new button called New Day. When pressed, the user may enter how many spoons they have for that given day, and the title will update to show how many spoons they have used out of their maximum spoon count. The number of used spoons is based upon items added to the to-do list. Also their is an issue with back buttons not showing the correct text.
 
 6-18-2022: Added a new function in CategoryView and an extra line in TaskView controller to now update the usedspoons/maxSpoons title at the top of the Category View
+
+6-22-2022 Have decided to begin transtioning toDoListViewController and TaskViewController over to having only two buttons, a back button and a "Show Options" button, which will then display other buttons in the toolbar. This change has been partially implemented for toDoListViewController. Lastly, renamed the "Mark as done" button in toDoListViewController to "Check off" to allow for more space in the toolbar.
