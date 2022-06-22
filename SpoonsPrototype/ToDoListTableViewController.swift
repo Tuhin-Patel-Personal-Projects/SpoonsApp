@@ -12,12 +12,21 @@ class ToDoListTableViewController: UITableViewController {
     var completedTasks = [Task]() // Tasks selected by the user that have been completed(CHANGE TO TASKS ARRAY LATER)
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         // Let the user remove items
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Mark as done", style: .plain, target: self, action: #selector(allowTaskSelection))
+        let checkOffButton =  UIBarButtonItem(title: "Check off", style: .plain, target: self, action: #selector(allowTaskSelection))
+        
+        toolbarItems = [checkOffButton]
+        
+        
+        navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showOptions))
+        
+                
+        // Let user move items back to their orignal categories
         
         // Make the title To-Do
         self.title = "To-Do"
@@ -61,7 +70,13 @@ class ToDoListTableViewController: UITableViewController {
     
     // FUNCTIONS FOR ON-SCREEN BUTTONS
     
-    // When the user presses "Mark as done", they should be allowed to select multiple
+    
+    // Shows the user the options they have on this screen
+    @objc func showOptions() {
+        navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
+    // When the user presses "Check off, they should be allowed to select multiple
     // tasks
     @objc func allowTaskSelection() {
         self.tableView.allowsMultipleSelection = true // Let the user pick multiple rows
@@ -91,9 +106,14 @@ class ToDoListTableViewController: UITableViewController {
         self.tableView.allowsMultipleSelection = false
         
         // Put the "Mark as done" button back and reload the view to show the changes
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Mark as done", style: .plain, target: self, action: #selector(allowTaskSelection))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Check off", style: .plain, target: self, action: #selector(allowTaskSelection))
         self.tableView.reloadData()
+        
+        navigationController?.setToolbarHidden(true, animated: true)
     }
+    
+    
    
+    
    
 }
