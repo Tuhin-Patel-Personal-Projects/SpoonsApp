@@ -11,22 +11,33 @@ class ToDoListTableViewController: UITableViewController {
     var toDoTasks = [Task]() // Tasks that have been sent to the to-do list
     var completedTasks = [Task]() // Tasks selected by the user that have been completed(CHANGE TO TASKS ARRAY LATER)
     
+    // Buttons that will be displayed on the screen
+    
+   
+    
+    
+    
+    
+    
+   
+    
+    
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Lets user select tasks to check off the to-do list
+        let checkOffButton =  UIBarButtonItem(title: "Check off", style: .plain, target: self, action: #selector(allowTaskSelection)) // Let the user remove items
         
-        // Let the user remove items
-        let checkOffButton =  UIBarButtonItem(title: "Check off", style: .plain, target: self, action: #selector(allowTaskSelection))
-        
+        // Set the toolbar
         toolbarItems = [checkOffButton]
         
-        
+        // Will open up the toolbar to show user their options.
         navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showOptions))
         
                 
-        // Let user move items back to their orignal categories
         
         // Make the title To-Do
         self.title = "To-Do"
@@ -71,9 +82,20 @@ class ToDoListTableViewController: UITableViewController {
     // FUNCTIONS FOR ON-SCREEN BUTTONS
     
     
-    // Shows the user the options they have on this screen
+    // Shows the user the options they have on this screen when pressing "Options"
     @objc func showOptions() {
-        navigationController?.setToolbarHidden(false, animated: true)
+        navigationController?.setToolbarHidden(false, animated: true) // Show the toolbar
+        
+        // Let user have the option to close the toolbar
+        navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Hide Options", style: .plain, target: self, action: #selector(hideOptions))
+    }
+    
+    // Hide the user's options when "Hide options" is pressed
+    @objc func hideOptions() {
+        navigationController?.setToolbarHidden(true, animated: true) // Hide toolbar
+        
+        // Let the user be able to open the toolbar again.
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showOptions))
     }
     
     // When the user presses "Check off, they should be allowed to select multiple
@@ -85,7 +107,7 @@ class ToDoListTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(removeFromList))
     }
     
-    // Once the user presses Done, the selected tasks should be removed from the list
+    // Once the user presses "Done," the selected tasks should be removed from the list
     @objc func removeFromList() {
         
         var index: Int // Will keep track of position in the array
@@ -95,8 +117,6 @@ class ToDoListTableViewController: UITableViewController {
             // Get the index of where task is in toDoTasks
             index = toDoTasks.firstIndex(of: task)! // Will never be nil
             toDoTasks.remove(at: index)
-            
-            
         }
         
         // Empty completed tasks now that these items are no longer relevent
@@ -105,11 +125,11 @@ class ToDoListTableViewController: UITableViewController {
         // Don't alllow users to select multiple rows now
         self.tableView.allowsMultipleSelection = false
         
-        // Put the "Mark as done" button back and reload the view to show the changes
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Check off", style: .plain, target: self, action: #selector(allowTaskSelection))
+        // Put the "Hide Options" button back and reload the view to show the changes
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide Options", style: .plain, target: self, action: #selector(hideOptions))
         self.tableView.reloadData()
         
-        navigationController?.setToolbarHidden(true, animated: true)
+        
     }
     
     
