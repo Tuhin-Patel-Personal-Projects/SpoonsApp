@@ -45,3 +45,6 @@ bring up a list of all the tasks currently placed there.
 6-18-2022: Added a new function in CategoryView and an extra line in TaskView controller to now update the usedspoons/maxSpoons title at the top of the Category View
 
 6-22-2022 Have decided to begin transtioning toDoListViewController and TaskViewController over to having only two buttons, a back button and a "Show Options" button, which will then display other buttons in the toolbar. This change has been partially implemented for toDoListViewController. Lastly, renamed the "Mark as done" button in toDoListViewController to "Check off" to allow for more space in the toolbar.
+
+6-23-2022: Added hideOptions button to toDoListViewController to allow users to hide the toolbar after they are done with it. Also adjusted some
+lines and functions to remove bugs that were a result of moving the Check off button to the toolbar.
