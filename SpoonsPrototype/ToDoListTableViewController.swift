@@ -11,20 +11,6 @@ class ToDoListTableViewController: UITableViewController {
     var toDoTasks = [Task]() // Tasks that have been sent to the to-do list
     var completedTasks = [Task]() // Tasks selected by the user that have been completed(CHANGE TO TASKS ARRAY LATER)
     
-    // Buttons that will be displayed on the screen
-    
-   
-    
-    
-    
-    
-    
-   
-    
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

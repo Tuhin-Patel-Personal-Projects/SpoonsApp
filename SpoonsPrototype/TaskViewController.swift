@@ -22,10 +22,17 @@ class TaskViewController: UITableViewController {
         self.navigationItem.backButtonTitle = ""
 
         // An add button
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
+        let addButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
         
         // A button to enable selecting tasks to send to the to do list
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectTasks))
+        let selectTasksButton = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectTasks))
+        
+        // List the add and select button in the toolbar
+        toolbarItems = [addButton, selectTasksButton]
+        
+        // Opens the toolbar for the user to show their options
+        navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showOptions))
+        
         
         self.title = String(listName)
        
@@ -86,6 +93,22 @@ class TaskViewController: UITableViewController {
     
     // FUNCTIONS FOR ON-SCREEN BUTTONS
     
+    // Shows the user the options they have on this screen when pressing "Options"
+    @objc func showOptions() {
+        navigationController?.setToolbarHidden(false, animated: true) // Show the toolbar
+        
+        // Let user have the option to close the toolbar
+        navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Hide Options", style: .plain, target: self, action: #selector(hideOptions))
+    }
+    
+    // Hide the user's options when "Hide options" is pressed
+    @objc func hideOptions() {
+        navigationController?.setToolbarHidden(true, animated: true) // Hide toolbar
+        
+        // Let the user be able to open the toolbar again.
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showOptions))
+    }
+    
     // Add new task to the list
     @objc func addItem() {
         let ac = UIAlertController(title: "Enter new task", message: nil, preferredStyle: .alert)
@@ -114,7 +137,7 @@ class TaskViewController: UITableViewController {
         self.tableView.allowsMultipleSelection = true // Let the user pick multiple rows
         
         // Sumbit items to be sent to the to do list
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Submit", style: .plain, target: self, action: #selector(submitTasks))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .plain, target: self, action: #selector(submitTasks))
         
     }
     
@@ -134,11 +157,13 @@ class TaskViewController: UITableViewController {
             // Construct the final task
             toDoItem.taskName = task
             toDoItem.taskSpoonCount = listName
-           
-           
             
             // Now add to the to do list
             delegate.placeInToDo(toDoItem)
+            
+            // Now remove this task from the taskList
+            index = taskList.firstIndex(of: task)!
+            taskList.remove(at: index)
         }
         
         // Empty selected tasks now that they are gone
@@ -146,9 +171,9 @@ class TaskViewController: UITableViewController {
         
         // Disable the ability to select multiple rows
         self.tableView.allowsSelection = false
-        
-        // Lastly, re-add the select button and reload the table view to remove all of the final selections
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectTasks))
+    
+        // Let user have the option to close the toolbar again
+        navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Hide Options", style: .plain, target: self, action: #selector(hideOptions))
         self.tableView.reloadData()
         
     }
