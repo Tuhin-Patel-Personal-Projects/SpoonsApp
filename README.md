@@ -48,3 +48,5 @@ bring up a list of all the tasks currently placed there.
 
 6-23-2022: Added hideOptions button to toDoListViewController to allow users to hide the toolbar after they are done with it. Also adjusted some
 lines and functions to remove bugs that were a result of moving the Check off button to the toolbar.
+
+6-24-2022: Added an Options button to the TaskList views, with the Add and Select buttons now being added to the toolbarItems. The Submit button will still appear as a right bar button item, and will be replaced with the Hide Options button after it is pressed.  
