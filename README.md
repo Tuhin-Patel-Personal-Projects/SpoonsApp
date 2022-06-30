@@ -50,3 +50,5 @@ bring up a list of all the tasks currently placed there.
 lines and functions to remove bugs that were a result of moving the Check off button to the toolbar.
 
 6-24-2022: Added an Options button to the TaskList views, with the Add and Select buttons now being added to the toolbarItems. The Submit button will still appear as a right bar button item, and will be replaced with the Hide Options button after it is pressed.  
+
+6-30-2022: Made it so that if a user's used spoons will go over their max spons when sending task to the to-do list, the action is stopped and the user is asked to deselect some tasks.
