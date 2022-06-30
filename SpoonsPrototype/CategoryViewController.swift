@@ -151,6 +151,11 @@ class CategoryViewController: UITableViewController {
         usedSpoons += taskSpoonCount
     }
     
+    // Called whenever tasks are added to ensure that usedSpoons does not surpass maxSpoons
+    func spoonsOverMax(_ submittedSpoons: Int) -> Bool {
+        return ((submittedSpoons + usedSpoons) > maxSpoons)
+    }
+    
 }
     
     

@@ -27,6 +27,8 @@ class SelectionViewController: UIViewController {
         // Create the submit button
         let submitTask = UIAlertAction(title: "Submit", style: .default) { // Trailing closure syntax
             
+    
+            
             [weak self, weak ac] action  in
             // Create the CateogryView
             if let vc = self?.storyboard?.instantiateViewController(identifier: "CategoryView") as? CategoryViewController {
@@ -36,6 +38,8 @@ class SelectionViewController: UIViewController {
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
+        
+        
         
         // Add submit button to action controller and present it
         ac.addAction(submitTask)

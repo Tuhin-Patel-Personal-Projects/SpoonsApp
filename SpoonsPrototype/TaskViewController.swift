@@ -12,15 +12,17 @@ class TaskViewController: UITableViewController {
     weak var delegate: CategoryViewController!
     var taskList = [String]() // Arry of tasks to show in this list
     var selectedTasks = [String]() // Array of tasks the user selects to send to a to-do list
+    
+  
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        self.navigationItem.leftItemsSupplementBackButton = true
-        self.navigationItem.backButtonTitle = ""
-
+       
+        
+        self.navigationItem.backBarButtonItem?.title = "Back"
         // An add button
         let addButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
         
@@ -146,36 +148,57 @@ class TaskViewController: UITableViewController {
        
         var index: Int // Stores where the task is listed in the taskList array
         
+        
         var toDoItem = Task() // Will be used to send Task items to the toDoList array
         
-        // Update the amount of used spoons
-        delegate.updateUsedSpoons(listName * selectedTasks.count)
+        // Check if the user has surpassed their max spoons with the tasks selected
+        let totalSpoonsSelected = listName * selectedTasks.count
+        let maxSurpassed = delegate.spoonsOverMax(totalSpoonsSelected)
         
-        // Loop through the selected task array
-        for task in selectedTasks {
+        // Proceed to send to to-do if the max is not surpassed
+        if(!maxSurpassed) {
+        
+            // Update the amount of used spoons
+            delegate.updateUsedSpoons(totalSpoonsSelected)
+        
+            // Loop through the selected task array
+            for task in selectedTasks {
 
-            // Construct the final task
-            toDoItem.taskName = task
-            toDoItem.taskSpoonCount = listName
+                // Construct the final task
+                toDoItem.taskName = task
+                toDoItem.taskSpoonCount = listName
             
-            // Now add to the to do list
-            delegate.placeInToDo(toDoItem)
+                // Now add to the to do list
+                delegate.placeInToDo(toDoItem)
             
-            // Now remove this task from the taskList
-            index = taskList.firstIndex(of: task)!
-            taskList.remove(at: index)
-        }
+                // Now remove this task from the taskList
+                index = taskList.firstIndex(of: task)!
+                taskList.remove(at: index)
+            }
         
-        // Empty selected tasks now that they are gone
-        selectedTasks.removeAll()
+            // Empty selected tasks now that they are gone
+            selectedTasks.removeAll()
         
-        // Disable the ability to select multiple rows
-        self.tableView.allowsSelection = false
+            // Disable the ability to select multiple rows
+            self.tableView.allowsSelection = false
     
-        // Let user have the option to close the toolbar again
-        navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Hide Options", style: .plain, target: self, action: #selector(hideOptions))
-        self.tableView.reloadData()
-        
+            // Let user have the option to close the toolbar again
+            navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Hide Options", style: .plain, target: self, action: #selector(hideOptions))
+            self.tableView.reloadData()
+        } else {
+            // If the max will be surpassed, let the user cancel out and deselect some tasks
+            let ac = UIAlertController(title: "You have went over your max!", message: "Please deselect some tasks", preferredStyle: .alert)
+            
+            // Create an OK action to dismiss controller
+            let okAction = UIAlertAction(title: "OK", style: .cancel) {
+                action  in print("OK was tapped")
+            }
+            
+            // Present the action controller
+            ac.addAction(okAction)
+            present(ac, animated: true)
+            
+        }
     }
     
 
