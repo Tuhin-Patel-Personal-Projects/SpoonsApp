@@ -15,6 +15,7 @@ class CategoryViewController: UITableViewController {
     
     var toDoList = [Task]()// Stores a to do list that the user may update (CHANGE TO ARRAY OF TASK ITEMS
     
+    
     var maxSpoons: Int = 0 { // Stores the spoon count limit the user has input for the day
         didSet {
             self.title = "0/\(maxSpoons)" // Change title every time max spoons is changed
@@ -110,6 +111,10 @@ class CategoryViewController: UITableViewController {
             
             // Give it the array
             vc.toDoTasks = toDoList
+            
+            // Set the delegate
+            vc.delegate = self
+            
             // Push the view controller
             navigationController?.pushViewController(vc, animated: true)
             
@@ -168,6 +173,12 @@ class CategoryViewController: UITableViewController {
         toDoList.append(task)
     }
     
+    // Called whenever a task is removed from to-do list.
+    func removeFromToDo(_ task: Task) {
+        let index = toDoList.firstIndex(of: task)!
+        toDoList.remove(at: index)
+    }
+    
     // Called whenever a task is placed in the toDoList
     func updateUsedSpoons(_ taskSpoonCount: Int) {
         usedSpoons += taskSpoonCount
@@ -177,6 +188,8 @@ class CategoryViewController: UITableViewController {
     func spoonsOverMax(_ submittedSpoons: Int) -> Bool {
         return ((submittedSpoons + usedSpoons) > maxSpoons)
     }
+    
+    
     
     
     

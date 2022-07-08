@@ -119,6 +119,9 @@ class ToDoListTableViewController: UITableViewController {
             // Get the index of where task is in toDoTasks
             index = toDoTasks.firstIndex(of: task)! // Will never be nil
             toDoTasks.remove(at: index)
+            
+            // Also need to remove from ToDo array in the main view, otherwise this item will not be permamnetly deleted
+            delegate.removeFromToDo(task)
         }
         
         // Empty completed tasks now that these items are no longer relevent
