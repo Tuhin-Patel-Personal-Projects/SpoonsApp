@@ -52,3 +52,5 @@ lines and functions to remove bugs that were a result of moving the Check off bu
 6-24-2022: Added an Options button to the TaskList views, with the Add and Select buttons now being added to the toolbarItems. The Submit button will still appear as a right bar button item, and will be replaced with the Hide Options button after it is pressed.  
 
 6-30-2022: Made it so that if a user's used spoons will go over their max spons when sending task to the to-do list, the action is stopped and the user is asked to deselect some tasks.
+
+7-07-2022: Added the Options button to the CategoryView, with New Day and View To-Do now in the toolbar items. Note that the code commmitted today has some sphagetti code that will soon be refactored/removed. This code was meant to allow users to send a task in the To-Do List back to its original TaskView. However, it has been decided this feature would require too many changes to how the Views interact currently, and thus an alternative will soon be implemented instead.
