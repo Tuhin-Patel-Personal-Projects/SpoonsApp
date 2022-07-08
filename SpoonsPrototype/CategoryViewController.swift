@@ -29,11 +29,18 @@ class CategoryViewController: UITableViewController {
     }
     override func viewDidLoad() {
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Day", style: .plain, target: self, action: #selector(newDay)) // Lets user start a new day by entering their max spoons for the day
+        // Lets user start a new day by entering their max spoons for the day
+        let newDayButton =  UIBarButtonItem(title: "New Day", style: .plain, target: self, action: #selector(newDay))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "To-Do", style: .plain, target: self, action: #selector(showToDoList)) // Lets user go look at their to-do list
+        // Lets user go look at their to-do list
+        let viewToDoButton = UIBarButtonItem(title: "To-Do", style: .plain, target: self, action: #selector(showToDoList))
         
-       
+        // Add options to the toolbar
+        toolbarItems = [newDayButton, viewToDoButton]
+        
+        // Opens the toolbar for the user to show their options
+        navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showOptions))
+        
         super.viewDidLoad()
         
         
@@ -79,6 +86,22 @@ class CategoryViewController: UITableViewController {
    
     
     // FUNCTIONS FOR BUTTONS ON THE SCREEN
+    
+    // Shows the user the options they have on this screen when pressing "Options"
+    @objc func showOptions() {
+        navigationController?.setToolbarHidden(false, animated: true) // Show the toolbar
+        
+        // Let user have the option to close the toolbar
+        navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Hide Options", style: .plain, target: self, action: #selector(hideOptions))
+    }
+    
+    // Hide the user's options when "Hide options" is pressed
+    @objc func hideOptions() {
+        navigationController?.setToolbarHidden(true, animated: true) // Hide toolbar
+        
+        // Let the user be able to open the toolbar again.
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showOptions))
+    }
     
     // Sends the user to a view that shows their current to do list
     @objc func showToDoList() {
@@ -140,7 +163,6 @@ class CategoryViewController: UITableViewController {
    
     // THESE FUNCTIONS ARE CALLED BY OTHER VIEWS, NOT THIS MAIN VIEW
     
-    
     // Called by TaskViewController to send to the to-do list
     func placeInToDo(_ task: Task) {
         toDoList.append(task)
@@ -151,10 +173,13 @@ class CategoryViewController: UITableViewController {
         usedSpoons += taskSpoonCount
     }
     
-    // Called whenever tasks are added to ensure that usedSpoons does not surpass maxSpoons
+    // Called whenever tasks are added to the to-do list, ensures that usedSpoons does not surpass maxSpoons
     func spoonsOverMax(_ submittedSpoons: Int) -> Bool {
         return ((submittedSpoons + usedSpoons) > maxSpoons)
     }
+    
+    
+    
     
 }
     

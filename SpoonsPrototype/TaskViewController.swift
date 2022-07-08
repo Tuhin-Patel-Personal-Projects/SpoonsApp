@@ -9,21 +9,20 @@ import UIKit
 
 class TaskViewController: UITableViewController {
     var listName: Int! // Title of this categry
-    weak var delegate: CategoryViewController!
     var taskList = [String]() // Arry of tasks to show in this list
     var selectedTasks = [String]() // Array of tasks the user selects to send to a to-do list
+    
+    weak var delegate: CategoryViewController! // Need to use functions in CategoryViewController
     
   
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-       
-        
+
         self.navigationItem.backBarButtonItem?.title = "Back"
-        // An add button
+        
+        // A button to let user add a task
         let addButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
         
         // A button to enable selecting tasks to send to the to do list
@@ -185,8 +184,10 @@ class TaskViewController: UITableViewController {
             // Let user have the option to close the toolbar again
             navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Hide Options", style: .plain, target: self, action: #selector(hideOptions))
             self.tableView.reloadData()
-        } else {
-            // If the max will be surpassed, let the user cancel out and deselect some tasks
+            
+        } else {  // If the max will be surpassed, let the user cancel out and deselect some tasks
+           
+            // Show the message
             let ac = UIAlertController(title: "You have went over your max!", message: "Please deselect some tasks", preferredStyle: .alert)
             
             // Create an OK action to dismiss controller
