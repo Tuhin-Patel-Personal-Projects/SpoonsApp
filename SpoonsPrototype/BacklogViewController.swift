@@ -10,6 +10,8 @@ import UIKit
 class BacklogViewController: UITableViewController {
     
     var backlogItems = [Task]() // Contains tasks that are in the backlog
+    
+    weak var delegate: CategoryViewController! // Need to use functions/variables in CategoryViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()

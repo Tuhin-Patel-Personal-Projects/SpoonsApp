@@ -8,13 +8,12 @@ import UIKit
 
 class CategoryViewController: UITableViewController {
     
-    var spoonCounts = [1,2,3,4,5,6,7,8,9,10] // Array containing just the categories of spoon counts the                                           // user gives. Fixing at a max of 10 spoons.
-    
-    
+    final var spoonCounts = [1,2,3,4,5,6,7,8,9,10] // Array containing just the categories of spoon counts
     var spoonVCs = [Int: TaskViewController]() // Associate a view controller with each spoon count
     
-    var toDoList = [Task]()// Stores a to do list that the user may update (CHANGE TO ARRAY OF TASK ITEMS
+    var toDoList = [Task]() // Stores a to do list that the user may update
     
+    var backlogItems = [Task]() // Stores any tasks the user does not complete after a day
     
     var maxSpoons: Int = 0 { // Stores the spoon count limit the user has input for the day
         didSet {
@@ -36,8 +35,11 @@ class CategoryViewController: UITableViewController {
         // Lets user go look at their to-do list
         let viewToDoButton = UIBarButtonItem(title: "To-Do", style: .plain, target: self, action: #selector(showToDoList))
         
+        // Show the user a list of backlog items from previous days' to-do lists
+        let backlogButton = UIBarButtonItem(title: "Backlog", style: .plain, target: self, action: #selector(showBacklog))
+        
         // Add options to the toolbar
-        toolbarItems = [newDayButton, viewToDoButton]
+        toolbarItems = [newDayButton, viewToDoButton, backlogButton]
         
         // Opens the toolbar for the user to show their options
         navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showOptions))
@@ -63,25 +65,33 @@ class CategoryViewController: UITableViewController {
         
         let currSpoonCount = spoonCounts[indexPath.row] // Get the spoon count once
         cell.textLabel?.text = String(currSpoonCount) // Cast the int as a string so it can be                                                         used as a label
-        
-        
-        
          
         // Create a view controller associated with this spoon count
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TaskList") as? TaskViewController {
            
             vc.listName = currSpoonCount // Set title to be the spoon count
             vc.taskList = [String]()
-            vc.delegate = self // Each task list should be able to use a delegate to give the main VC data,
-                                // primarily used when adding tasks to the do list.
-            
-            
-            
+            vc.delegate = self // Each task list should be able to use a delegate to use the Category View's data/functions
+                               
             // Add to the dicitonary of View controllers
             spoonVCs[currSpoonCount] = vc
             
         }
         return cell
+    }
+    
+    // Open the view for a specific task list
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Safely get the current cell
+        guard let currCell = self.tableView.cellForRow(at: indexPath) else { return }
+        
+        // Get the cell's spoon count(it will always be the text)
+        let rowSpoonCount = Int((currCell.textLabel?.text)!) ?? 0 // Nil coalescing to get the number
+        
+        // Open the view controller at this area and present it
+        navigationController?.pushViewController(spoonVCs[rowSpoonCount]!, animated: true)
+        
     }
     
    
@@ -141,6 +151,9 @@ class CategoryViewController: UITableViewController {
             guard let todaysSpoons = ac?.textFields?[0].text else {return}
             self?.maxSpoons = Int(todaysSpoons)! // Set max spoons
             
+            // Append the toDoList to the backlog, then empty the toDoList
+            self?.backlogItems.append(contentsOf: self!.toDoList)
+            self?.toDoList.removeAll()
         }
         
         // Give ac the submit action
@@ -150,21 +163,23 @@ class CategoryViewController: UITableViewController {
         present(ac, animated: true)
     }
     
-    
-    // Open the view for a specific task list
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // Show user their list of backlogged items
+    @objc func showBacklog() {
+        // Create the view
+        if let vc = storyboard?.instantiateViewController(identifier: "BacklogView") as? BacklogViewController {
+            
+            // Give it the array of backlog items
+            vc.backlogItems = backlogItems
+            
+            // Set the delegate
+            vc.delegate = self
+            
+            // Push the view controller
+            navigationController?.pushViewController(vc, animated: true)
         
-        // Safely get the current cell
-        guard let currCell = self.tableView.cellForRow(at: indexPath) else { return }
-        
-        // Get the cell's spoon count(it will always be the text)
-        let rowSpoonCount = Int((currCell.textLabel?.text)!) ?? 0 // Nil coalescing to get the number
-        
-        // Open the view controller at this area and present it
-        navigationController?.pushViewController(spoonVCs[rowSpoonCount]!, animated: true)
-        
+        }
+
     }
-    
    
     // THESE FUNCTIONS ARE CALLED BY OTHER VIEWS, NOT THIS MAIN VIEW
     
@@ -197,8 +212,6 @@ class CategoryViewController: UITableViewController {
 }
     
     
-
-
 
 
 
