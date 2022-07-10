@@ -62,8 +62,8 @@ class TaskViewController: UITableViewController {
         }
     }
     
-    // Will mark these as tasks currently selected by the user by storing them in another
-    // arrat
+    // Will mark these as tasks currently selected by the user by storing them in the
+    // selectedTasks array
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // The user should only be allowed to do this if multiple-row selection is active
         if (self.tableView.allowsMultipleSelection) {
@@ -187,7 +187,7 @@ class TaskViewController: UITableViewController {
             
         } else {  // If the max will be surpassed, let the user cancel out and deselect some tasks
            
-            // Show the message
+            // Create the message
             let ac = UIAlertController(title: "You have went over your max!", message: "Please deselect some tasks", preferredStyle: .alert)
             
             // Create an OK action to dismiss controller
@@ -195,7 +195,7 @@ class TaskViewController: UITableViewController {
                 action  in print("OK was tapped")
             }
             
-            // Present the action controller
+            // Present the message
             ac.addAction(okAction)
             present(ac, animated: true)
             

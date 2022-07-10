@@ -11,20 +11,31 @@ class BacklogViewController: UITableViewController {
     
     var backlogItems = [Task]() // Contains tasks that are in the backlog
     
+    var selectedTasks = [Task]() // Stores tasks the user selects to send to the to-do list
+    
+    var selectedTasksSpoons = 0 // Sum of the spoon counts of the tasks in selectedTasks
+    
     weak var delegate: CategoryViewController! // Need to use functions/variables in CategoryViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Button to let user select tasks to send to the to-do list
+        navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectTasks))
+        
+        // Set the title
+        self.title = "Backlog"
+        
+        
 
-       
-        
-        
     }
 
     // MARK: - Table view data source
 
     // How many cells are needed
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        
         return backlogItems.count
     }
     
@@ -38,59 +49,99 @@ class BacklogViewController: UITableViewController {
         return cell
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    // When tasks are selected, store them in the selectedTasks array
+    // Will mark these as tasks currently selected by the user by storing them in the
+    // selectedTasks array
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // The user should only be allowed to do this if multiple-row selection is active
+        if (self.tableView.allowsMultipleSelection) {
+            
+            // Get the selected task once
+            let selectedTask = backlogItems[indexPath.row]
+            
+            // Move the selected item to the array, updated the sum of its spoons
+            selectedTasks.append(selectedTask)
+            selectedTasksSpoons += selectedTask.taskSpoonCount
+            
+        }
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    // Remove a task from the selected tasks array if its row is deselected
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+        // Get the task from this row
+         let selectedTask = backlogItems[indexPath.row]
+        
+        // Get the index of where this task is in the selectedTasks array
+        let index = selectedTasks.firstIndex(of: selectedTask)!
+        
+        // Remove the item from selectedTasks, also subtract its spoon count from the total
+        selectedTasks.remove(at: index)
+        selectedTasksSpoons -= selectedTask.taskSpoonCount
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    // FUNCTIONS FOR ON-SCREEN BUTTONS
+    
+    // When the select button is pressed, let the user start selectng tasks to send to the to-do list
+    @objc func selectTasks() {
+        self.tableView.allowsMultipleSelection = true // Let the user pick multiple rows
+        
+        // Sumbit items to be sent to the to do list
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .plain, target: self, action: #selector(submitTasks))
+        
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    // Handles the job of taking tasks selected by the user and moving them to the to-do list
+    @objc func submitTasks() {
+        var index: Int // Stores where the task is listed in the backlogTasks array
+        
+        // Check if the user surpasse their max spoon coult
+        let maxSurpassed = delegate.spoonsOverMax(selectedTasksSpoons)
+        
+        // If not over the max, go ahead and add all selected items to the to-do lists
+        if(!maxSurpassed) {
+            
+            // Update the usedSpoons variable
+            delegate.updateUsedSpoons(selectedTasksSpoons)
+            
+            for task in selectedTasks {
+                delegate.placeInToDo(task)
+                
+                // Remove from the backlog array, both here and in the CategoryView
+                index = backlogItems.firstIndex(of: task)!
+                backlogItems.remove(at: index)
+                delegate.removeFromBacklog(task)
+            }
+            
+            // Empty selected tasks now that they are gone,the total of its spoon counts is
+            // now 0
+            selectedTasks.removeAll()
+            selectedTasksSpoons = 0
+            
+            // Disable the ability to select multiple rows
+            self.tableView.allowsSelection = false
+    
+            // Let user have the option to select items again
+            navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectTasks))
+            self.tableView.reloadData()
+        } else { // Notify user they are over their max otherwise
+            
+            // Create the message
+            let ac = UIAlertController(title: "You have went over your max!", message: "Please deselect some tasks", preferredStyle: .alert)
+            
+            // Create an OK action to dismiss controller
+            let okAction = UIAlertAction(title: "OK", style: .cancel) {
+                action  in print("OK was tapped")
+            }
+            
+            // Present the message
+            ac.addAction(okAction)
+            present(ac, animated: true)
+        }
+            
+            
+            
+        
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+        
 }

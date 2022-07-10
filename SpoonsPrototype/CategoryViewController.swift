@@ -150,6 +150,7 @@ class CategoryViewController: UITableViewController {
             [weak self, weak ac] action  in
             guard let todaysSpoons = ac?.textFields?[0].text else {return}
             self?.maxSpoons = Int(todaysSpoons)! // Set max spoons
+            self?.usedSpoons = 0 // Reset used spoons to 0
             
             // Append the toDoList to the backlog, then empty the toDoList
             self?.backlogItems.append(contentsOf: self!.toDoList)
@@ -202,6 +203,13 @@ class CategoryViewController: UITableViewController {
     // Called whenever tasks are added to the to-do list, ensures that usedSpoons does not surpass maxSpoons
     func spoonsOverMax(_ submittedSpoons: Int) -> Bool {
         return ((submittedSpoons + usedSpoons) > maxSpoons)
+    }
+    
+    // Remove item from the backlog array
+     func removeFromBacklog(_ task: Task) {
+        let index = backlogItems.firstIndex(of: task)!
+        backlogItems.remove(at: index)
+        
     }
     
     
