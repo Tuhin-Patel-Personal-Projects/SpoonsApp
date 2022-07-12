@@ -1,8 +1,16 @@
 //
-//  ViewController.swift
+//  CategoryViewController.swift
 //  Spoon Task Manager App
 //  Created by Tuhin Patel on 5/6/22.
-//
+
+/*
+   This is the initial view of the app. In the table are 10 cells, labeled 1-10,
+ representing the spoon counts the user can give to a task. These each lead to
+ a TaskViewController. The options button will bring up a toolbar. The user may start a ne
+ w  day and enter a max spoon count, which will then be displayed in the title as "# of
+ spoons used/max # of spoons". They may also go to their to-do list or a list of their
+ backlogged tasks.
+ */
 
 import UIKit
 

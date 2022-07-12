@@ -1,9 +1,12 @@
 //
 //  Task.swift
 //  SpoonsPrototype
-//
 //  Created by Tuhin Patel on 5/20/22.
-//
+/*
+    Stores the name of a task and the spoon count given to it. Used by
+ ToDoListViewController and BacklogViewController, as these views need to display both the
+ name of a task and its spoon count.
+ */
 
 import Foundation
 

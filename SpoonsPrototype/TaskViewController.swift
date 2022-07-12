@@ -1,9 +1,14 @@
 //
 //  TaskViewController.swift
 //  SpoonsPrototype
-//
 //  Created by Tuhin Patel on 5/13/22.
-//
+/*
+    Displays a task list to the user. There is one TaskViewController for each cell in the
+ CategoryViewController, meaning each one is associated with a spoon count. The title of
+ the view is based upon the spoon count it is associated with. The user may press Options
+ to pull up a toolbar, which will then allow them to add tasks to the list or move tasks to
+ the to-do list.
+ */
 
 import UIKit
 

@@ -1,9 +1,12 @@
 //
 //  ToDoListTableViewController.swift
 //  SpoonsPrototype
-//
 //  Created by Tuhin Patel on 5/18/22.
-//
+/*
+    Displays a user's to-do list. Each task is shown by displaying the task name and then
+ the spoon count associated with the task. By pressing Options, the toolbar is displayed.
+ This allows a user to check items off of their to-do list.
+ */
 
 import UIKit
 
@@ -12,9 +15,7 @@ class ToDoListTableViewController: UITableViewController {
     var completedTasks = [Task]() // Tasks selected by the user that have been completed
     var tasksToSendBack = [Task]() // Tasks selected by user to send back to their TaskList
     
-    var checkOffOn = false // Represents if the user is currently checking off tasks
-    var sendBackOn = false // Represents if the user is currently sending tasks back to their
-                          // oriignal lists
+    
     
     weak var delegate: CategoryViewController! // Need to use functions/variables in CategoryViewController
     
@@ -60,21 +61,18 @@ class ToDoListTableViewController: UITableViewController {
     
     // Marks a task as having been selected by the user while marking tasks as done
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if (checkOffOn) { // If in check-off mode, send task to completedTasks array
+        // If multiple selection is on, add this task to the completedTasks arrat
+        if (self.tableView.allowsMultipleSelection) {
             completedTasks.append(toDoTasks[indexPath.row])
-        } else if(sendBackOn) { // If in send back mode
-            tasksToSendBack.append(toDoTasks[indexPath.row])
         }
     
     }
     
     // Remove a task from the array of completed items if it is deselected
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if (checkOffOn) { // If in check-off mode, remove task from completedTasks array
+        // If multiple selection is on , remove task from completedTasks array
+        if (self.tableView.allowsMultipleSelection) {
             completedTasks.remove(at: indexPath.row)
-        } else if(sendBackOn) { // If in send back mode, remove from send back arrau
-            tasksToSendBack.remove(at: indexPath.row)
         }
     }
     
@@ -103,7 +101,7 @@ class ToDoListTableViewController: UITableViewController {
     @objc func allowCheckOff() {
         self.tableView.allowsMultipleSelection = true // Let the user pick multiple rows
         
-        checkOffOn = true // In check-off mode
+        
         
         // Remove items from the to-do list
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(removeFromList))
@@ -129,49 +127,10 @@ class ToDoListTableViewController: UITableViewController {
         
         // Don't alllow users to select multiple rows now, no longer in check-off mode
         self.tableView.allowsMultipleSelection = false
-        checkOffOn = false
+        
         
         // Put the "Hide Options" button back and reload the view to show the changes
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide Options", style: .plain, target: self, action: #selector(hideOptions))
         self.tableView.reloadData()
     }
-    
-    // Allow user to send tasks back after pressing "Send back"
-    @objc func allowSendBack() {
-        self.tableView.allowsMultipleSelection = true // Let the user pick multiple rows
-        sendBackOn = true // In send back mode now
-        
-        // Let user finalize their choice to send tasks back
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(sendTasksBack))
-    }
-    
-    // Sends the tasks the user has picked back to their original TaskLists
-    @objc func sendTasksBack() {
-        
-        var index: Int // Will keep track of position in the main array
-        
-        // Loop through tasksToSendBack and place each item in
-        for task in tasksToSendBack {
-            //delegate.sendTaskBack(task) // Send the tassk back to its original list
-            
-            // Remove the task from the main list
-            index = toDoTasks.firstIndex(of: task)!
-            toDoTasks.remove(at: index)
-        }
-        
-        // Empty tasks to send back
-        tasksToSendBack.removeAll()
-        
-        // Don't alllow users to select multiple rows now, no longer in send back mode
-        self.tableView.allowsMultipleSelection = false
-        sendBackOn = false
-        
-        // Put the "Hide Options" button back and reload the view to show the changes
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide Options", style: .plain, target: self, action: #selector(hideOptions))
-        self.tableView.reloadData()
-    }
-    
-   
-    
-   
 }

@@ -1,9 +1,12 @@
 //
 //  BacklogViewController.swift
 //  SpoonsPrototype
-//
 //  Created by Tuhin Patel on 7/8/22.
-//
+/*
+    Displays a lits of the user's backlogged tasks. Anytime a user starts a new day with
+ tasks still in their to-do list, those tasks will be sent here. Just like the
+ TaskViewControllers, users may send these tasks to the to-do list.
+ */
 
 import UIKit
 
