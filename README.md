@@ -60,3 +60,5 @@ lines and functions to remove bugs that were a result of moving the Check off bu
 7-09-2022: Added a button to the CategoryViews' toolbar that can be used to view the backlog of incomplete tasks from previous days. Modified the New Day button to now also move all of the to-do list's contents to the backlog before emptying the to-do list.
 
 7-10-2022: Added Select/Submit buttons to the BacklogViewController as rightBarButton items, they are almost identical to the Select/Submit butons in TaskViewController. Also updated the newDay function in the CategoryViewController. During tests it was found that the usedSpoons variable was not being set to 0 every time a new day was started, and this caused some bugs that are now gone.
+
+7-12-2022: Added commented explanations at the top of each view controller file and the file containing the Task struct to state their purposes and the general layout of each view.
