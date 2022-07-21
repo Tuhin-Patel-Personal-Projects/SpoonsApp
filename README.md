@@ -62,3 +62,5 @@ lines and functions to remove bugs that were a result of moving the Check off bu
 7-10-2022: Added Select/Submit buttons to the BacklogViewController as rightBarButton items, they are almost identical to the Select/Submit butons in TaskViewController. Also updated the newDay function in the CategoryViewController. During tests it was found that the usedSpoons variable was not being set to 0 every time a new day was started, and this caused some bugs that are now gone.
 
 7-12-2022: Added commented explanations at the top of each view controller file and the file containing the Task struct to state their purposes and the general layout of each view.
+
+7-21-2022: Due to the ToDoList View only having one toolbar item, Check off, the Options/Hide Options buttons were removed and now the right bar button item will always be either Check off or Done. Also added the option to cancel out of the action controller for when a user presses New Day in the CategoryView or Add in the TaskView
