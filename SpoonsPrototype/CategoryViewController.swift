@@ -165,8 +165,14 @@ class CategoryViewController: UITableViewController {
             self?.toDoList.removeAll()
         }
         
-        // Give ac the submit action
+        // Create an action that lets the user cancel out of the window
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+            action  in print("Cancel was tapped(new day canceled)")
+        }
+        
+        // Give ac the submit action and cancel action
         ac.addAction(submitSpoons)
+        ac.addAction(cancelAction)
         
         // Present the action controller
         present(ac, animated: true)

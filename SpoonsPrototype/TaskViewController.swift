@@ -120,6 +120,7 @@ class TaskViewController: UITableViewController {
         let ac = UIAlertController(title: "Enter new task", message: nil, preferredStyle: .alert)
         ac.addTextField() // User enters answer here
         
+        // Create a submit action
         let submitTask = UIAlertAction(title: "Submit", style: .default) { // Trailing closure syntax
         
             
@@ -132,7 +133,15 @@ class TaskViewController: UITableViewController {
             self?.tableView.reloadData() // Reload the view
             
         }
+        
+        // Create a cancel action
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+            action  in print("Cancel was tapped(adding item cancelled)")
+        }
+        
         ac.addAction(submitTask)
+        ac.addAction(cancelAction)
+        
         
         present(ac, animated: true)
     }
@@ -197,7 +206,7 @@ class TaskViewController: UITableViewController {
             
             // Create an OK action to dismiss controller
             let okAction = UIAlertAction(title: "OK", style: .cancel) {
-                action  in print("OK was tapped")
+                action  in print("OK was tapped(max surpassed)")
             }
             
             // Present the message
