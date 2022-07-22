@@ -78,7 +78,7 @@ class CategoryViewController: UITableViewController {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TaskList") as? TaskViewController {
            
             vc.listName = currSpoonCount // Set title to be the spoon count
-            vc.taskList = [String]()
+            vc.taskList = [Task]()
             vc.delegate = self // Each task list should be able to use a delegate to use the Category View's data/functions
                                
             // Add to the dicitonary of View controllers
