@@ -64,3 +64,5 @@ lines and functions to remove bugs that were a result of moving the Check off bu
 7-12-2022: Added commented explanations at the top of each view controller file and the file containing the Task struct to state their purposes and the general layout of each view.
 
 7-21-2022: Due to the ToDoList View only having one toolbar item, Check off, the Options/Hide Options buttons were removed and now the right bar button item will always be either Check off or Done. Also added the option to cancel out of the action controller for when a user presses New Day in the CategoryView or Add in the TaskView
+
+7-22-2022: Modified TaskViewController to use the Task struct in its arrays. This makes it more consistent with what other views are using to store information.
