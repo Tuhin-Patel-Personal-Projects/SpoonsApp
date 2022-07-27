@@ -126,9 +126,19 @@ class CategoryViewController: UITableViewController {
     @objc func showToDoList() {
         // Create the view
         if let vc = storyboard?.instantiateViewController(identifier: "ToDoList") as? ToDoListTableViewController {
+ 
+            // Sort array by spoon counts, least to greatest
+            toDoList.sort {
+                $0.taskSpoonCount < $1.taskSpoonCount
+            }
             
             // Give it the array
             vc.toDoTasks = toDoList
+            
+            // Construct the dictionary
+            vc.toDoTasksDict = Dictionary(grouping: toDoList) { (task) -> Int in
+                return task.taskSpoonCount
+            }
             
             // Set the delegate
             vc.delegate = self

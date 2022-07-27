@@ -13,30 +13,33 @@ import UIKit
 class ToDoListTableViewController: UITableViewController {
     var toDoTasks = [Task]() // Tasks that have been sent to the to-do list
     var completedTasks = [Task]() // Tasks selected by the user that have been completed
-   
-    
-    
-    
+    var toDoTasksDict = [Int: [Task]]() // Dictionary that groups tasks with the same spoon count
+
     weak var delegate: CategoryViewController! // Need to use functions/variables in CategoryViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         // Will let the user check items off of their to-do list
         navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Check Off", style: .plain, target: self, action: #selector(allowCheckOff))
-        
-                
         
         // Make the title To-Do
         self.title = "To-Do"
 
        
     }
-
+    
+    // Section out the table view into categories for each spoon-count value
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 10
+    }
    
     // One row per task
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return toDoTasks.count
+        
+        return self.toDoTasksDict[section]?.count ?? 0
     }
     
     // Create a cell for each task
@@ -44,9 +47,10 @@ class ToDoListTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItem", for: indexPath)
         
-
-        let task = toDoTasks[indexPath.row]
-        cell.textLabel?.text = "\(task.taskName), \(task.taskSpoonCount)" // Display in the format of "name, spoonCount"
+        // Get the next task by going into this section's array
+        let task = self.toDoTasksDict[indexPath.section]?[indexPath.row]
+        
+        cell.textLabel?.text = "\(task!.taskName), \(task!.taskSpoonCount)" // Display in the format of "name, spoonCount"
         
         return cell
     }
