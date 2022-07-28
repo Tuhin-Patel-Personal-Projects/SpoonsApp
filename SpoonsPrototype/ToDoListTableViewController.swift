@@ -33,7 +33,7 @@ class ToDoListTableViewController: UITableViewController {
     
     // Section out the table view into categories for each spoon-count value
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        return 11 // Returning 10 here would only give enough sections for spoon counts 1-9
     }
    
     // One row per task
@@ -45,6 +45,7 @@ class ToDoListTableViewController: UITableViewController {
     // Create a cell for each task
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        print(indexPath.section)
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItem", for: indexPath)
         
         // Get the next task by going into this section's array
