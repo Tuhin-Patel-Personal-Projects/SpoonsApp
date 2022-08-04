@@ -60,7 +60,7 @@ class ToDoListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // If multiple selection is on, add this task to the completedTasks arrat
         if (self.tableView.allowsMultipleSelection) {
-            completedTasks.append(toDoTasks[indexPath.row])
+            completedTasks.append((toDoTasksDict[indexPath.section]?[indexPath.row])!)
         }
     
     }
@@ -97,6 +97,9 @@ class ToDoListTableViewController: UITableViewController {
             // Get the index of where task is in toDoTasks
             index = toDoTasks.firstIndex(of: task)! // Will never be nil
             toDoTasks.remove(at: index)
+            
+            index = (toDoTasksDict[task.taskSpoonCount]?.firstIndex(of: task)!)!
+            toDoTasksDict[task.taskSpoonCount]?.remove(at: index)
             
             // Also need to remove from ToDo array in the main view, otherwise this item will not be permamnetly deleted
             delegate.removeFromToDo(task)
