@@ -11,9 +11,11 @@
 import UIKit
 
 class ToDoListTableViewController: UITableViewController {
-    var toDoTasks = [Task]() // Tasks that have been sent to the to-do list
+    var toDoTasks = [Task]() /* Tasks that have been sent to the to-do list, this is mainly
+                                used to be able to communicate with CategoryViewController on when items have been checked off*/
     var completedTasks = [Task]() // Tasks selected by the user that have been completed
-    var toDoTasksDict = [Int: [Task]]() // Dictionary that groups tasks with the same spoon count
+    
+    var toDoTasksDict = [Int: [Task]]() /* Dictionary that groups tasks with the same spoon                                 count, this is what's used to lay out the rows and                                    sections */
 
     weak var delegate: CategoryViewController! // Need to use functions/variables in CategoryViewController
     
@@ -54,6 +56,22 @@ class ToDoListTableViewController: UITableViewController {
         cell.textLabel?.text = "\(task!.taskName), \(task!.taskSpoonCount)" // Display in the format of "name, spoonCount"
         
         return cell
+    }
+    
+    // Add headers to the top of each section showing the spoon-category
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // Make a colored background for the title of the section to be placed on
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height:  30))
+        headerView.backgroundColor = .gray
+        
+        // Make a label to show the spoon count
+        let headerLabel = UILabel(frame: CGRect(x: 15, y: 0, width: headerView.frame.width - 15 , height: 30))
+        headerLabel.font = UIFont.systemFont(ofSize: 21)
+        headerLabel.text = String(section)
+        
+        headerView.addSubview(headerLabel)
+        
+        return headerView
     }
     
     // Marks a task as having been selected by the user while marking tasks as done
@@ -98,6 +116,7 @@ class ToDoListTableViewController: UITableViewController {
             index = toDoTasks.firstIndex(of: task)! // Will never be nil
             toDoTasks.remove(at: index)
             
+            // Find task in the dictionary and remove it from there too.
             index = (toDoTasksDict[task.taskSpoonCount]?.firstIndex(of: task)!)!
             toDoTasksDict[task.taskSpoonCount]?.remove(at: index)
             
