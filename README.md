@@ -68,3 +68,5 @@ lines and functions to remove bugs that were a result of moving the Check off bu
 7-22-2022: Modified TaskViewController to use the Task struct in its arrays. This makes it more consistent with what other views are using to store information.
 
 8-04-2022: The past few commits have all been used in setting up the ToDoListviewController to use sections as a way of easily organizing tasks based on their spoon counts. Now that the sections have fully been implemented with headers, most of the currently planned updates to the app's basic UI and features have been implemented. Future commmits will address improving the UI of the ToDoListViewController to look more clean and organized.
+
+8-19-2022: Added whitespace between sections in the to-do list, allows the sections to look more distinct. Was mainly done because sections could be directly adjacent to each other before when two sections had no contents.
