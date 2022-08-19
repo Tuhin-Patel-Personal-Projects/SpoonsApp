@@ -23,6 +23,7 @@ class ToDoListTableViewController: UITableViewController {
         super.viewDidLoad()
         
         
+       
         
         // Will let the user check items off of their to-do list
         navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Check Off", style: .plain, target: self, action: #selector(allowCheckOff))
@@ -74,6 +75,11 @@ class ToDoListTableViewController: UITableViewController {
         return headerView
     }
     
+    // Add whitespace between sections so that adjacent sections never have touching headers
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 20
+    }
+    
     // Marks a task as having been selected by the user while marking tasks as done
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // If multiple selection is on, add this task to the completedTasks arrat
@@ -87,6 +93,7 @@ class ToDoListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         // If multiple selection is on , remove task from completedTasks array
         if (self.tableView.allowsMultipleSelection) {
+           
             completedTasks.remove(at: indexPath.row)
         }
     }
