@@ -12,7 +12,8 @@ import UIKit
 
 class ToDoListTableViewController: UITableViewController {
     var toDoTasks = [Task]() /* Tasks that have been sent to the to-do list, this is mainly
-                                used to be able to communicate with CategoryViewController on when items have been checked off*/
+                                used to be able to communicate with CategoryViewController  when items have been checked off*/
+    
     var completedTasks = [Task]() // Tasks selected by the user that have been completed
     
     var toDoTasksDict = [Int: [Task]]() /* Dictionary that groups tasks with the same spoon                                 count, this is what's used to lay out the rows and                                    sections */
@@ -93,8 +94,15 @@ class ToDoListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         // If multiple selection is on , remove task from completedTasks array
         if (self.tableView.allowsMultipleSelection) {
-           
-            completedTasks.remove(at: indexPath.row)
+            // Get the Task from this row
+            if let deselectedTask = toDoTasksDict[indexPath.section]?[indexPath.row] {
+                if let index = completedTasks.firstIndex(of: deselectedTask) {
+                    completedTasks.remove(at: index)
+
+                }
+                
+            }
+            
         }
     }
     

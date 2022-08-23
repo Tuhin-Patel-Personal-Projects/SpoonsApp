@@ -17,7 +17,7 @@ import UIKit
 class CategoryViewController: UITableViewController {
     
     final var spoonCounts = [1,2,3,4,5,6,7,8,9,10] // Array containing just the categories of spoon counts
-    var spoonVCs = [Int: TaskViewController]() // Associate a view controller with each spoon count
+    var spoonVCs = [Int: TaskListViewController]() // Associate a view controller with each spoon count
     
     var toDoList = [Task]() // Stores a to do list that the user may update
     
@@ -75,7 +75,7 @@ class CategoryViewController: UITableViewController {
         cell.textLabel?.text = String(currSpoonCount) // Cast the int as a string so it can be                                                         used as a label
          
         // Create a view controller associated with this spoon count
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "TaskList") as? TaskViewController {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "TaskList") as? TaskListViewController {
            
             vc.listName = currSpoonCount // Set title to be the spoon count
             vc.taskList = [Task]()
