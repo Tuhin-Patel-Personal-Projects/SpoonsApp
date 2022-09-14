@@ -43,7 +43,7 @@ This view lets the user look at their to-do list. The to-do list is split into t
 BacklogViewController
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-	Stores a list of the user’s backlog tasks. Tasks are sent here when a user begins a new day while there are still tasks in the to-do list. The right-bar button for this view is “Select,” which functions the same as the Select button is TaskListViewController. For each row with a task in it, the information is displayed as: taskName, taskSpoonCount
+Stores a list of the user’s backlog tasks. Tasks are sent here when a user begins a new day while there are still tasks in the to-do list. The right-bar button for this view is “Select,” which functions the same as the Select button is TaskListViewController. For each row with a task in it, the information is displayed as “taskName, taskSpoonCount”
 
 PROGRESS UPDATES:
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
