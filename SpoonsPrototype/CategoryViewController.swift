@@ -1,7 +1,7 @@
 //
 //  CategoryViewController.swift
 //  Spoon Task Manager App
-//  Created by Tuhin Patel on 5/6/22.
+//  Created by Tuhin Patel on 5/6/22
 
 /*
    This is the initial view of the app. In the table are 10 cells, labeled 1-10,
